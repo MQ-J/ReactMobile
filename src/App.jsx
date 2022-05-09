@@ -1,17 +1,3 @@
-
-import React from "react";
-
-class App extends React.Component {
-  render() {
-    const { name } = this.props;
-    return (
-      <>
-        <h1>
-          Hello {name}
-        </h1>
-      </>
-    );
-  }
+export function App() {
+  return <h1>REACT FUNCIONA</h1>
 }
-
-export default App;

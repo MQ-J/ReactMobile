@@ -1,6 +1,7 @@
-import { render } from "react-dom";
-import App from "./App";
+import { render } from "react-dom"
+import { App } from "./App"
 
 
-var mountNode = document.getElementById("root");
-render(<App name="Jane" />, mountNode);
+var root = document.getElementById("root")
+
+render(<App />, root)
