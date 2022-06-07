@@ -1,3 +1,13 @@
+import { Footer } from "./components/Footer";
+import { Header } from "./components/Header";
+
+
+
 export function App() {
-  return <h1 class="text-center">REACT FUNCIONA</h1>
+  return(
+    <div>
+      <Header />
+      <Footer />
+    </div>
+  )
 }
