@@ -12,13 +12,13 @@ export default function Login() {
   const navigate = useNavigate();
 
   // fetch("https://UnusualDizzyCron.mqj.repl.co", {
-    fetch(
-      "https://raw.githubusercontent.com/MQ-J/ReactTest/main/public/users.json",
-      {
-    headers: {
-      Accept: "application/json"
-    }
-  })
+  fetch(
+    "https://raw.githubusercontent.com/MQ-J/ReactMobile/main/dist/user.json",
+    {
+      headers: {
+        Accept: "application/json"
+      }
+    })
     .then((res) => res.json())
     .then((res) => setUsers(res));
 

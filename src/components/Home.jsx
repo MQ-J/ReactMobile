@@ -7,11 +7,11 @@ import { useLocation, Navigate, Link } from "react-router-dom";
 export default function Home() {
   const location = useLocation();
   const login = location.login;
-  alert(login);
-  if (!login) {
-    alert("faça o login");
-    return <Navigate to="/" />;
-  }
+//   alert(login);
+//   if (!login) {
+//     alert("faça o login");
+//     return <Navigate to="/" />;
+//   }
 
   return (
     <div>
