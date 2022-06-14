@@ -7,29 +7,29 @@ import { useNavigate } from "react-router-dom";
 // -------------------------------------
 
 export default function Login() {
+  
   const [users, setUsers] = useState("");
-  const [login, setLogin] = useState(false);
   const navigate = useNavigate();
 
-  fetch(
-    "https://raw.githubusercontent.com/MQ-J/ReactMobile/main/dist/user.json",
-    {
-      headers: {
-        Accept: "application/json"
-      }
-    })
-    .then((res) => res.json())
-    .then((res) => setUsers(res));
+  // BUSCA USUÁRIOS VÁLIDOS EM JSON
+  if (users == "") {
+    fetch(
+      "https://raw.githubusercontent.com/MQ-J/ReactMobile/main/dist/user.json",
+      {
+        headers: {
+          Accept: "application/json"
+        }
+    }).then((res) => res.json()).then((res) => setUsers(res));
+  }
 
+  // FUNÇÃO PARA FAZER LOGIN
   const auth = (event) => {
+
     let user = event.target.user.value;
     let pwd = event.target.password.value;
 
     if (user === users.name && pwd === users.pwd) {
-      setLogin(true);
-      if (login) {
-        navigate("/home", { login: "a" });
-      }
+      navigate("home");
       event.preventDefault();
     }
   };
@@ -41,6 +41,7 @@ export default function Login() {
         <div className="d-flex aligns-items-center justify-content-center pt-3">
           <div className="border border-secondary rounded p-2">
             <form onSubmit={auth}>
+
               <div className="input-group d-flex justify-content-around align-items-center">
                 <label htmlFor="user">Usuário:</label>
                 <input
@@ -51,6 +52,7 @@ export default function Login() {
                   className="form-control m-1 w-50"
                 />
               </div>
+              
               <div className="input-group d-flex justify-content-around align-items-center">
                 <label htmlFor="password">Senha:</label>
                 <input
@@ -65,7 +67,6 @@ export default function Login() {
                 <button type="submit" className="btn btn-outline-dark">
                   Login
                 </button>
-                {/* <a className="btn btn-primary" href="/home">Login</a> */}
               </div>
             </form>
           </div>
