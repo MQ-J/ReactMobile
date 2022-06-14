@@ -6,10 +6,13 @@ import Respect from "./Respect";
 import StarWars from "./Starwars";
 
 export function Rotas() {
+    
+    let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
+
     return (
         <>
             {/* Controlador de rotas */}
-            <Router basename="/ReactMobile/dist">
+            <Router basename={basename}>
 
                 {/* Páginas que as rotas trazem */}
                 <Routes>
