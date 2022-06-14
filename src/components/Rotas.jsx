@@ -9,7 +9,7 @@ export function Rotas() {
     return (
         <>
             {/* Controlador de rotas */}
-            <Router>
+            <BrowserRouter basename="/ReactMobile/dist">
 
                 {/* Páginas que as rotas trazem */}
                 <Routes>
@@ -18,7 +18,7 @@ export function Rotas() {
                     <Route path="/Respect" element={<Respect />} />
                     <Route path="/StarWars" element={<StarWars />} />
                 </Routes>
-            </Router>
+            </BrowserRouter>
         </>
     )
 }
