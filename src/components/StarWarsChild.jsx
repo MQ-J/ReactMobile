@@ -4,7 +4,7 @@ import { Component } from "react";
 // -------------------------------------
 
 // definindo classe Filho como um Componente (isso é um componente de classe)
-export default class Child extends Component {
+export default class StarWarsChild extends Component {
   render() {
     return (
       <div>

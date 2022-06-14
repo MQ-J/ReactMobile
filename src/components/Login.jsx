@@ -11,7 +11,6 @@ export default function Login() {
   const [login, setLogin] = useState(false);
   const navigate = useNavigate();
 
-  // fetch("https://UnusualDizzyCron.mqj.repl.co", {
   fetch(
     "https://raw.githubusercontent.com/MQ-J/ReactMobile/main/dist/user.json",
     {

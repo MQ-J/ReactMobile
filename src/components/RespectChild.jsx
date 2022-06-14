@@ -3,7 +3,7 @@ import { Component } from "react";
 
 // --------------------------------
 
-export default class Bencao extends Component {
+export default class RespectChild extends Component {
   // função do filho que altera valor do pai
   funcaoDoFilho = (event) => {
     this.props.funcaoDoPai(event.target.pedebença.value);

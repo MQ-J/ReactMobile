@@ -1,5 +1,5 @@
 // modulo filho
-import Bencao from "./Bencao";
+import RespectChild from "./RespectChild";
 
 // importando aquela coisa de estado
 import { useState } from "react";
@@ -19,7 +19,8 @@ export default function Respect() {
     setState("Deus te abençõe meu filho.");
   };
 
-  const login = this.props.login;
+  // const login = this.props.login;
+  const login = true;
   if (!login) {
     alert("faça o login");
     return <Navigate to="/" />;
@@ -71,7 +72,7 @@ export default function Respect() {
           <p className="mb-1 text-center">Pai: {state} </p>
 
           {/* exportando elemento filho, com função do pai data como parâmetro */}
-          <Bencao funcaoDoPai={acessaEstadoPai} />
+          <RespectChild funcaoDoPai={acessaEstadoPai} />
         </div>
       </div>
     </div>

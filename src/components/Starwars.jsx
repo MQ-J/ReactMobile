@@ -1,5 +1,5 @@
 // importando o elemento filho
-import Child from "./Child";
+import StarWarsChild from "./StarWarsChild";
 
 // importando aquela coisa de estado
 import { useState } from "react";
@@ -20,7 +20,8 @@ export default function StarWars() {
     setData("Luke " + numb);
   };
 
-  const login = this.props.login;
+  // const login = this.props.login;
+  const login = true;
   if (!login) {
     alert("faça o login");
     return <Navigate to="/" />;
@@ -73,7 +74,7 @@ export default function StarWars() {
           <p>Pai: Dart Vader</p>
 
           {/* exportando elemento filho, com a variável data como parâmetro do props 'texto' */}
-          <Child texto={data} />
+          <StarWarsChild texto={data} />
 
           {/* botão que chama função que define a variável data */}
           <div>

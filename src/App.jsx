@@ -1,12 +1,12 @@
 import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
+import { Rotas } from "./components/Rotas";
 
 
 
 export function App() {
   return(
     <div>
-      <Header />
+      <Rotas />
       <Footer />
     </div>
   )

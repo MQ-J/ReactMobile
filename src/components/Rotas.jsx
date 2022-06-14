@@ -5,7 +5,7 @@ import Login from "./Login";
 import Respect from "./Respect";
 import StarWars from "./Starwars";
 
-export function Header() {
+export function Rotas() {
     return (
         <>
             {/* Controlador de rotas em formato de navbar */}
