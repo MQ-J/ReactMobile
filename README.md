@@ -16,7 +16,8 @@ Acredito que isso se deve ao fato das rotas não serem em volta de todo o site, 
 graph TD;
     Index-->App;
     App-->Rotas;
-    Rotas-->Home;
+    Rotas-->Login;
+    Login-->Home;
     Rotas-->Respect;
     Rotas-->StarWars;
 ```
