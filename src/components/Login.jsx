@@ -21,7 +21,7 @@ export default function Login() {
   // BUSCA USUÁRIOS VÁLIDOS EM JSON
   if (users == "") {
     fetch(
-      "https://raw.githubusercontent.com/MQ-J/ReactMobile/main/dist/user.json",
+      "https://polar-shelf-77439.herokuapp.com/api/ReactMobile/getUsers",
       {
         headers: {
           Accept: "application/json"
