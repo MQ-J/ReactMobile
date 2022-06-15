@@ -28,10 +28,9 @@ export default function Login() {
     let user = event.target.user.value;
     let pwd = event.target.password.value;
 
-    if (user === users.name && pwd === users.pwd) {
+    if (user === users.name && pwd === users.pwd)
       navigate("home");
-      event.preventDefault();
-    }
+    event.preventDefault();
   };
 
   return (

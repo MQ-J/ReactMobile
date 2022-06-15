@@ -7,6 +7,11 @@ let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
 <Router basename={basename}>
 ```
 
+- Desenvovimento
+  - npm run start
+- Produção
+  - npm run build-prod
+
 ## Controle de Login
 
 As rotas secundárias não funcionam diretamente. É preciso passar pela rota principal (consequentemente, fazer o login) para chegar nas demais rotas.
