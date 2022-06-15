@@ -1,6 +1,11 @@
-# React Template
+# Alterar rotas com base no ambiente
 
-This is a React project template using webpack for Spck for NodeJS. This project template was made with the help of `createapp.dev`.
+Quando o modo do webpack for diferente de 'development', a rota é alterada para se encaixar no caminho dos arquivos no Github Pages. Trecho simplificado a seguir:
+
+```javascript
+let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
+<Router basename={basename}>
+```
 
 ## Building and Running
 
