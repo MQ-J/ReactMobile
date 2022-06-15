@@ -8,8 +8,15 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   
+  // usuário que irá logar
   const [users, setUsers] = useState("");
+
+  // className da msg de login incorreto
+  const [loginError, setLoginError] = useState("d-none");
+
+  // para acessar módulo Home
   const navigate = useNavigate();
+
 
   // BUSCA USUÁRIOS VÁLIDOS EM JSON
   if (users == "") {
@@ -28,8 +35,12 @@ export default function Login() {
     let user = event.target.user.value;
     let pwd = event.target.password.value;
 
-    if (user === users.name && pwd === users.pwd)
-      navigate("home");
+    if (user === users.name && pwd === users.pwd) {
+      navigate("home")
+    } else {
+      setLoginError("alert alert-danger")
+    }
+
     event.preventDefault();
   };
 
@@ -38,7 +49,12 @@ export default function Login() {
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto">
         <h2 className="text-center pt-3">Entre na sua conta</h2>
         <div className="d-flex aligns-items-center justify-content-center pt-3">
+
+          {/* caixa do login */}
           <div className="border border-secondary rounded p-2">
+
+            <div className={loginError} role="alert">Login Incorreto</div>
+
             <form onSubmit={auth}>
 
               <div className="input-group d-flex justify-content-around align-items-center">
@@ -69,6 +85,7 @@ export default function Login() {
               </div>
             </form>
           </div>
+          
         </div>
       </div>
     </div>
