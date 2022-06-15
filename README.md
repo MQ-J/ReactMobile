@@ -17,7 +17,7 @@ graph TD;
     Index-->App;
     App-->Rotas;
     Rotas-->Home;
-    Rotas<--Home;
+    Home-->Rotas;
     Rotas-->Respect;
     Rotas-->StarWars;
 ```
