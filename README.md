@@ -14,6 +14,18 @@ let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
 
 ## Controle de Login
 
+FETCH tem costume de usar cache, mas como este projeto usa fetch para pesquisar os usuários válidos, foi preciso desativar o uso do cache. Visão simplificada deste trecho do arquivo Login.jsx:
+
+```javascript
+fetch("url",
+      {
+        headers: {
+          Accept: "application/json"
+        },
+        cache: "no-store"
+      })
+```
+
 As rotas secundárias não funcionam diretamente. É preciso passar pela rota principal (consequentemente, fazer o login) para chegar nas demais rotas.
 Acredito que isso se deve ao fato das rotas não serem em volta de todo o site, mas dentro de um componente:
 
