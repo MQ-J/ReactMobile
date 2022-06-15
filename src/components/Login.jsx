@@ -25,8 +25,10 @@ export default function Login() {
       {
         headers: {
           Accept: "application/json"
-        }
-    }).then((res) => res.json()).then((res) => setUsers(res.users));
+        },
+        cache: "no-store"
+      }
+    ).then((res) => res.json()).then((res) => setUsers(res.users));
   }
 
   // FUNÇÃO PARA FAZER LOGIN
