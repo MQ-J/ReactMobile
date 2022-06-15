@@ -26,7 +26,7 @@ export default function Login() {
         headers: {
           Accept: "application/json"
         }
-    }).then((res) => res.json()).then((res) => setUsers(res));
+    }).then((res) => res.json()).then((res) => setUsers(res.users));
   }
 
   // FUNÇÃO PARA FAZER LOGIN
@@ -35,11 +35,11 @@ export default function Login() {
     let user = event.target.user.value;
     let pwd = event.target.password.value;
 
-    if (user === users.name && pwd === users.pwd) {
-      navigate("home")
-    } else {
-      setLoginError("alert alert-danger")
-    }
+    users.map((u) => {
+      if (user === u.name && pwd === u.pwd)
+        navigate("home")
+    })
+    setLoginError("alert alert-danger")
 
     event.preventDefault();
   };
@@ -85,7 +85,7 @@ export default function Login() {
               </div>
             </form>
           </div>
-          
+
         </div>
       </div>
     </div>
