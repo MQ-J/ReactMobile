@@ -26,7 +26,7 @@ export default class RespectChild extends Component {
         </div>
 
         <div className="mx-auto w-50 mt-2">
-          <button type="submit" className="btn btn-outline-dark">
+          <button type="submit" className="btn text-white bg-orange">
             Pedir bença
           </button>
         </div>

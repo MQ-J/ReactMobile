@@ -53,7 +53,7 @@ export default function Login() {
         <div className="d-flex aligns-items-center justify-content-center pt-3">
 
           {/* caixa do login */}
-          <div className="border border-secondary rounded p-2">
+          <div className="border border-secondary rounded p-2 bg-cadet">
 
             <div className={loginError} role="alert">Login Incorreto</div>
 
@@ -81,7 +81,7 @@ export default function Login() {
               </div>
 
               <div className="d-flex flex-column justify-content-center mx-auto w-50 mt-2">
-                <button type="submit" className="btn btn-outline-dark">
+                <button type="submit" className="btn text-white bg-orange">
                   Login
                 </button>
               </div>
