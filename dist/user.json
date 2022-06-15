@@ -1,5 +1,12 @@
 {
-    "id": 1,
-    "name": "Querino",
-    "pwd": "123"
+    "users": [
+        {
+            "name": "Querino",
+            "pwd": "123"
+        },{
+            "name": "root",
+            "pwd": "root"
+        }
+    ]
+    
 }  
