@@ -19,6 +19,12 @@ graph TD;
     Rotas-->Home;
     Rotas-->Respect;
     Rotas-->StarWars;
+    Home-->Respect;
+    Home-->StarWars;
+    Respect-->Home;
+    Respect-->StarWars;
+    StarWars-->Home;
+    StarWars-->Respect;
 ```
 
 ## Limitations in Android
