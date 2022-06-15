@@ -18,8 +18,8 @@ graph TD;
     App-->Rotas;
     Rotas-->Login;
     Login-->Home;
-    Rotas-->Respect;
-    Rotas-->StarWars;
+    Login-->Respect;
+    Login-->StarWars;
 ```
 
 ## Limitations in Android
