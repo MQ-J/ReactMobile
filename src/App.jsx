@@ -12,6 +12,7 @@ import { Footer } from "./components/Footer";
 export function App() {
 
   let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
+  console.log(process.env.NODE_ENV)
 
   return(
     <div>
