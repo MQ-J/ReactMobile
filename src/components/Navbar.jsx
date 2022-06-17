@@ -1,7 +1,9 @@
 // para redirecionar
 import { Link } from "react-router-dom";
 
-export function Navbar() {
+// -------------------------------------
+
+export function Navbar(props) {
 
     return (
         <>
@@ -18,7 +20,7 @@ export function Navbar() {
 
                         <div className="modal-header bg-cadet border-3 border-dark">
                             <h5 className="modal-title" id="modalLabel">
-                                Você mesmo
+                                {props.user}
                             </h5>
                             <button
                                 type="button"
@@ -75,13 +77,14 @@ export function Navbar() {
                     </svg>
                 </button >
 
-                <Link className="nav-link link-dark p-2" to="/Home" >
+                {/* páginas */}
+                <Link className="nav-link link-dark p-2" to={`/${props.user}`}>
                     Home
                 </Link>
-                <Link className="nav-link link-dark p-2" to="/Respect" >
+                <Link className="nav-link link-dark p-2" to={`/${props.user}/Respect`}>
                     Respeito aos pais
                 </Link>
-                <Link className="nav-link link-dark p-2" to="/StarWars" >
+                <Link className="nav-link link-dark p-2" to={`/${props.user}/StarWars`}>
                     StarWars
                 </Link>
             </nav >

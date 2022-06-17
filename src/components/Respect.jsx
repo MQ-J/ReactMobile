@@ -5,13 +5,16 @@ import RespectChild from "./RespectChild";
 import { useState } from "react";
 
 // para redirecionar
-import { Navigate, Link } from "react-router-dom";
 import { Navbar } from "./Navbar";
+import { useParams } from 'react-router-dom';
 
 // -------------------------------------
 
-// definindo classe Filho como um Componente (isso é um componente de classe)
 export default function Respect() {
+
+  // parâmetro da URL
+  const {user} = useParams();
+
   // um estado do elemento pai
   const [state, setState] = useState("");
 
@@ -20,17 +23,10 @@ export default function Respect() {
     setState("Deus te abençõe meu filho.");
   };
 
-  // const login = this.props.login;
-  const login = true;
-  if (!login) {
-    alert("faça o login");
-    return <Navigate to="/" />;
-  }
-
   return (
     <div>
       
-      <Navbar />
+      <Navbar user={user}/>
 
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto">
         <h2 className="text-center pt-3">Benção</h2>

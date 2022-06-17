@@ -5,12 +5,16 @@ import StarWarsChild from "./StarWarsChild";
 import { useState } from "react";
 
 // para redirecionar
-import { Navigate } from "react-router-dom";
 import { Navbar } from "./Navbar";
+import { useParams } from 'react-router-dom';
 
 // -------------------------------------
 
 export default function StarWars() {
+
+  // parâmetro da URL
+  const {user} = useParams();
+
   // definindo data e a função que seta ela, sem valor inicial
   const [data, setData] = useState("");
   const [numb, setNumb] = useState(0);
@@ -21,17 +25,10 @@ export default function StarWars() {
     setData("Luke " + numb);
   };
 
-  // const login = this.props.login;
-  const login = true;
-  if (!login) {
-    alert("faça o login");
-    return <Navigate to="/" />;
-  }
-
   return (
     <div>
       
-      <Navbar />
+      <Navbar user={user}/>
 
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto">
         <h2 className="text-center pt-3">Star Wars</h2>

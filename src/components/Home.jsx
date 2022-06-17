@@ -1,3 +1,4 @@
+// para redirecionar
 import { Navbar } from "./Navbar";
 import { useParams } from 'react-router-dom';
 
@@ -5,12 +6,14 @@ import { useParams } from 'react-router-dom';
 
 // definindo classe Filho como um Componente (isso é um componente de classe)
 export default function Home() {
+
+  // parâmetro da URL
   const {user} = useParams();
-console.log(user)
+  
   return (
     <div>
 
-      <Navbar />
+      <Navbar user={user}/>
 
       {/* conteúdo */}
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto">
