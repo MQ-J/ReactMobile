@@ -20,6 +20,7 @@ export function Rotas() {
                     <Route path="/Home" element={<Home />} />
                     <Route path="/Respect" element={<Respect />} />
                     <Route path="/StarWars" element={<StarWars />} />
+                    <Route path="/:user" element={<Home />} />
                 </Routes>
             </Router>
         </>

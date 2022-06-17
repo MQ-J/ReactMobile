@@ -39,7 +39,7 @@ export default function Login() {
 
     users.map((u) => {
       if (user === u.name && pwd === u.pwd)
-        navigate("home")
+        navigate(user)
     })
     setLoginError("alert alert-danger")
 
