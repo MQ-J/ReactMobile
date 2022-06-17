@@ -40,6 +40,13 @@ publicPath: '/',
 historyApiFallback: true,
 ```
 
+E alterar o caminho do bundle.js dentro do index.html, retirando o ponto:
+
+```diff
+- <script src="./bundle.js"></script>
++ <script src="/bundle.js"></script>
+```
+
 ## Limitations in Android
 
 Due to security restrictions in Android, execute permissions on write-allowed storage is likely forbidden on most stock devices. This prevents some npm scripts from working properly as `npm run` rely on the use of `sh` which requires exec permissions.
