@@ -26,17 +26,18 @@ fetch("url",
       })
 ```
 
-As rotas secundárias não funcionam diretamente. É preciso passar pela rota principal (consequentemente, fazer o login) para chegar nas demais rotas.
-Acredito que isso se deve ao fato das rotas não serem em volta de todo o site, mas dentro de um componente:
+## Rotas secundárias
 
-```mermaid
-graph TD;
-    Index-->App;
-    App-->Rotas;
-    Rotas-->Login;
-    Login-->Home;
-    Login-->Respect;
-    Login-->StarWars;
+As rotas secundárias não funcionavam diretamente.<br>
+Isso acontecia porque o React Router é um CSR (Roteador do lado do cliente), que não funciona sem antes fazer o primeiro GET para a rota "/".<br>
+A solução foi encontrada em  **[Fixing the 'cannot GET /URL' error](https://ui.dev/react-router-cannot-get-url-refresh)** foi adicionar esses parâmetros no arquivo **webpack.config.js**:
+
+```javascript
+// output
+publicPath: '/',
+
+// devServer
+historyApiFallback: true,
 ```
 
 ## Limitations in Android
