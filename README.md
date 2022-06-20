@@ -1,6 +1,6 @@
 ## Alterar rotas com base no ambiente
 
-Quando o modo do webpack for diferente de 'development', a rota é alterada para se encaixar no caminho dos arquivos no Github Pages. Trecho simplificado do arquivo Rotas.jsx a seguir:
+Quando o modo do webpack for diferente de 'development', a rota é alterada para se encaixar no caminho dos arquivos no Github Pages. Trecho simplificado do arquivo **[App.jsx](https://github.com/MQ-J/ReactMobile/blob/main/src/App.jsx)** a seguir:
 
 ```javascript
 let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
