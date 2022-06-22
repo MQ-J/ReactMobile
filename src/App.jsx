@@ -11,9 +11,7 @@ import { Footer } from "./components/Footer";
 
 export function App() {
 
-  let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
-  let isBuild = process.env.NODE_ENV != "development" ? true : false
-  console.log(process.env.NODE_ENV)
+  const basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
 
   return(
     <div>
@@ -23,8 +21,8 @@ export function App() {
 
         {/* Páginas que as rotas trazem */}
         <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/:user" element={isBuild ? <Redirect to="/" /> : <Home />} />
+            <Route path="/" element={<Login/>} />
+            <Route path="/:user" element={<Home />} />
             <Route path="/:user/Respect" element={<Respect />} />
             <Route path="/:user/StarWars" element={<StarWars />} />
         </Routes>

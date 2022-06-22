@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 export default function Login() {
   
   // usuário que irá logar
-  const [users, setUsers] = useState("");
+  let users = ""
 
   // className da msg de login incorreto
   const [loginError, setLoginError] = useState("d-none");
@@ -28,7 +28,7 @@ export default function Login() {
         },
         cache: "no-store"
       }
-    ).then((res) => res.json()).then((res) => setUsers(res.users));
+    ).then((res) => res.json()).then((res) => {users = res.users});
   }
 
   // FUNÇÃO PARA FAZER LOGIN
