@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 
 export function Navbar(props) {
 
+    // controla o logout
+    const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
     const removeLogin = () => {
         localStorage.removeItem("user")
-        location = '/'
+        location = url
     }
 
     return (
