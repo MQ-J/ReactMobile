@@ -48,7 +48,7 @@ export function Navbar(props) {
                                 data-bs-dismiss="modal"
                                 onClick={removeLogin}
                             >
-                                Deslogar
+                                Logout
                             </button>
                         </div>
                     </div>
