@@ -1,4 +1,4 @@
-## Alterar rotas com base no ambiente
+## **Alterar rotas com base no ambiente**
 
 Quando o modo do webpack for diferente de 'development', a rota é alterada para se encaixar no caminho dos arquivos no Github Pages. Trecho simplificado do arquivo **[App.jsx](https://github.com/MQ-J/ReactMobile/blob/main/src/App.jsx)** a seguir:
 
@@ -7,12 +7,7 @@ let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
 <Router basename={basename}>
 ```
 
-- Desenvovimento
-  - npm run start
-- Produção
-  - npm run build-prod
-
-## Controle de Login
+## **Controle de Login**
 
 FETCH tem costume de usar cache, mas como este projeto usa fetch para pesquisar os usuários válidos, foi preciso desativar o uso do cache. Visão simplificada deste trecho do arquivo Login.jsx:
 
@@ -26,28 +21,28 @@ fetch("url",
       })
 ```
 
-## Rotas secundárias
+## **Login e Logout**
 
-As rotas secundárias não funcionavam diretamente.<br>
-Isso acontecia porque o React Router é um CSR (Roteador do lado do cliente), que não funciona sem antes fazer o primeiro GET para a rota "/".<br>
-A solução foi encontrada em  **[Fixing the 'cannot GET /URL' error](https://ui.dev/react-router-cannot-get-url-refresh)** foi adicionar esses parâmetros no arquivo **webpack.config.js**:
+Este projeto usa LocalStorage para pular o formário de login quando já houver um usuário logado no navegador:
 
 ```javascript
-// output
-publicPath: '/',
-
-// devServer
-historyApiFallback: true,
+  localStorage.getItem("user") ? 
+    useEffect(() => {
+      navigate(localStorage.getItem("user"))
+    },[])
+  : console.log("faça o login")
 ```
 
-E alterar o caminho do bundle.js dentro do index.html, retirando o ponto:
-
-```diff
-- <script src="./bundle.js"></script>
-+ <script src="/bundle.js"></script>
+Também remove o localStorage e muda a rota com base no ambiente, para fazer logout:
+```javascript
+const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
+    const removeLogin = () => {
+        localStorage.removeItem("user")
+        location = url
+    }
 ```
 
-## Limitations in Android
+## **Limitations in Android Development**
 
 Due to security restrictions in Android, execute permissions on write-allowed storage is likely forbidden on most stock devices. This prevents some npm scripts from working properly as `npm run` rely on the use of `sh` which requires exec permissions.
 
