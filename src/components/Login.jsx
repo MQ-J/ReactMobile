@@ -1,5 +1,5 @@
 // importando aquela coisa de estado
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // para redirecionar
 import { useNavigate } from "react-router-dom";
@@ -7,16 +7,22 @@ import { useNavigate } from "react-router-dom";
 // -------------------------------------
 
 export default function Login() {
+
+  // para acessar módulo Home
+  const navigate = useNavigate();
   
+  // caso já tenha login, vai pro home
+  localStorage.getItem("user") ? 
+    useEffect(() => {
+      navigate(localStorage.getItem("user"))
+    },[])
+  : console.log("faça o login")
+
   // usuário que irá logar
   let users = ""
 
   // className da msg de login incorreto
   const [loginError, setLoginError] = useState("d-none");
-
-  // para acessar módulo Home
-  const navigate = useNavigate();
-
 
   // BUSCA USUÁRIOS VÁLIDOS EM JSON
   if (users == "") {
@@ -39,6 +45,7 @@ export default function Login() {
 
     users.map((u) => {
       if (user === u.name && pwd === u.pwd)
+        localStorage.setItem("user", user)
         navigate(user)
     })
     setLoginError("alert alert-danger")

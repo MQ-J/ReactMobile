@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 
 export function Navbar(props) {
 
+    const removeLogin = () => {
+        localStorage.removeItem("user")
+        location = '/'
+    }
+
     return (
         <>
             {/*  Modal de usuário  */}
@@ -41,11 +46,9 @@ export function Navbar(props) {
                                 type="button"
                                 className="btn btn-secondary"
                                 data-bs-dismiss="modal"
+                                onClick={removeLogin}
                             >
                                 Deslogar
-                            </button>
-                            <button type="button" className="btn text-white bg-orange">
-                                ok
                             </button>
                         </div>
                     </div>
