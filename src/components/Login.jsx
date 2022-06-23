@@ -24,31 +24,28 @@ export default function Login() {
   // className da msg de login incorreto
   const [loginError, setLoginError] = useState("d-none");
 
-  // BUSCA USUÁRIOS VÁLIDOS EM JSON
-  if (users == "") {
-    fetch(
-      "https://polar-shelf-77439.herokuapp.com/api/ReactMobile/getUsers",
-      {
-        headers: {
-          Accept: "application/json"
-        },
-        cache: "no-store"
-      }
-    ).then((res) => res.json()).then((res) => {users = res.users});
-  }
-
   // FUNÇÃO PARA FAZER LOGIN
   const auth = (event) => {
 
-    let user = event.target.user.value;
-    let pwd = event.target.password.value;
-
-    users.map((u) => {
-      if (user === u.name && pwd === u.pwd)
-        localStorage.setItem("user", user)
-        navigate(user)
-    })
-    setLoginError("alert alert-danger")
+    fetch(
+      "https://polar-shelf-77439.herokuapp.com/api/ReactMobile/login",
+      {
+        body: new URLSearchParams(new FormData(event.target)),
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "post",
+      }
+    ).then((res) => res.json()).then((res) => {
+        
+        if(res['status'] == 'ok') {
+          localStorage.setItem("user", event.target.name.value)
+          navigate(event.target.name.value)
+        } else {
+          setLoginError("alert alert-danger")
+        } 
+      }
+    );
 
     event.preventDefault();
   };
@@ -64,13 +61,13 @@ export default function Login() {
 
             <div className={loginError} role="alert">Login Incorreto</div>
 
-            <form onSubmit={auth}>
+            <form id="loginForm" onSubmit={auth}>
 
               <div className="input-group d-flex justify-content-around align-items-center">
                 <label htmlFor="user">Usuário:</label>
                 <input
                   type="text"
-                  name="user"
+                  name="name"
                   id="user"
                   placeholder="Querino"
                   className="form-control m-1 w-50"
@@ -81,7 +78,7 @@ export default function Login() {
                 <label htmlFor="password">Senha:</label>
                 <input
                   type="password"
-                  name="password"
+                  name="pwd"
                   placeholder="123"
                   className="form-control m-1 w-50"
                 />

@@ -9,19 +9,20 @@ let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
 
 ## **Controle de Login**
 
-FETCH tem costume de usar cache, mas como este projeto usa fetch para pesquisar os usuários válidos, foi preciso desativar o uso do cache. Visão simplificada deste trecho do arquivo Login.jsx:
+Os campos do formulário são enviados para a API de login em Laravel PHP. Se a resposta for OK, o acesso é liberado: 
 
 ```javascript
-fetch("url",
+fetch("https://polar-shelf-77439.herokuapp.com/api/ReactMobile/login",
       {
+        body: new URLSearchParams(new FormData(event.target)),
         headers: {
-          Accept: "application/json"
+            "Content-Type": "application/x-www-form-urlencoded",
         },
-        cache: "no-store"
+        method: "post",
       })
 ```
 
-## **Login e Logout**
+## **Login automático e Logout**
 
 Este projeto usa LocalStorage para pular o formário de login quando já houver um usuário logado no navegador:
 
