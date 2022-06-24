@@ -83,32 +83,38 @@ export default function Login() {
 function NewUserModal() {
 
   // className da msg de login incorreto
-  const [newUserError, setNewUserError] = useState("d-none");
+  const [newUserError, setNewUserError] = useState(["d-none","a"]);
 
   // FUNÇÃO PARA CRIAR USUÁRIO
   const newUser = (event) => {
 
-    const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+    if(event.target.pwd.value === event.target.pwd2.value) {
 
-    fetch(
-      `${url}/api/ReactMobile/newUser`,
-      {
-        body: new URLSearchParams(new FormData(event.target)),
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        method: "post",
-      }
-    ).then((res) => res.json()).then((res) => {
-        
-        if(res['status'] == 'ok') {
-          localStorage.setItem("user", event.target.name.value)
-          location.reload()
-        } else {
-          setNewUserError("alert alert-danger")
-        } 
-      }
-    );
+      const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+
+      fetch(
+        `${url}/api/ReactMobile/newUser`,
+        {
+          body: new URLSearchParams(new FormData(event.target)),
+          headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+          },
+          method: "post",
+        }
+      ).then((res) => res.json()).then((res) => {
+          
+          if(res['status'] == 'ok') {
+            localStorage.setItem("user", event.target.name.value)
+            location.reload()
+          } else {
+            setNewUserError(["alert alert-danger","erro ao criar usuário"])
+          } 
+        }
+      );
+
+    } else {
+      setNewUserError(["alert alert-danger","dados inválidos"])
+    }
 
     event.preventDefault();
   };
@@ -124,9 +130,9 @@ function NewUserModal() {
       <div className="modal-body m-3">
         <Form newUser={newUser}/>
       </div>
-      <div className="modal-footer border-3 border-dark">
-        <div className={newUserError} role="alert">Os campos 'Senha' devem ser iguais</div>
-        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+      <div className="d-flex justify-content-between modal-footer border-3 border-dark">
+      <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <div className={newUserError[0]} role="alert">{newUserError[1]}</div>
       </div>
     </div>
   </div>
@@ -143,8 +149,8 @@ function Form(props) {
                 <input
                   type="text"
                   name="name"
-                  placeholder="Querino"
                   className="form-control m-1 w-50"
+                  required
                 />
               </div>
               
@@ -153,8 +159,8 @@ function Form(props) {
                 <input
                   type="password"
                   name="pwd"
-                  placeholder="123"
                   className="form-control m-1 w-50"
+                  required
                 />
               </div>
 
@@ -164,8 +170,8 @@ function Form(props) {
                 <input
                   type="password"
                   name="pwd2"
-                  placeholder="123"
                   className="form-control m-1 w-50"
+                  required
                 />
               </div>
               }
