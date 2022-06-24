@@ -5,24 +5,33 @@ Quando o modo do webpack for diferente de 'development', a rota é alterada para
 ```javascript
 let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
 <Router basename={basename}>
+  //rotas das views aqui
+</Router>
 ```
 
-## **Controle de Login**
+## **Comunicação com Backend Laravel usando API**
 
-Os campos do formulário são enviados para a API de login em Laravel PHP. Se a resposta for OK, o acesso é liberado: 
+O processamento dos dados dos formulários é feito em um projeto Laravel no Heroku. Usando Fetch, determinada função (Web Service) é chamado, e a resposta é tratada, como vemos no exemplo simplificado a seguir:
 
 ```javascript
-fetch("https://polar-shelf-77439.herokuapp.com/api/ReactMobile/login",
-      {
-        body: new URLSearchParams(new FormData(event.target)),
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-        },
-        method: "post",
-      })
+const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://realSiteOnline"
+
+      fetch(`${url}/apiRouteHere`,
+        {
+          // body, headers and method
+        }
+      ).then((res) => res.json()).then((res) => {
+
+          if (res['status'] == 'ok') {
+            // quando der certo
+          } else {
+            // quando der errado
+          }
+        }
+      );
 ```
 
-## **Login automático e Logout**
+## **Login com LocalStorage e Logout**
 
 Este projeto usa LocalStorage para pular o formário de login quando já houver um usuário logado no navegador:
 
@@ -34,7 +43,7 @@ Este projeto usa LocalStorage para pular o formário de login quando já houver 
   : console.log("faça o login")
 ```
 
-Também remove o localStorage e muda a rota com base no ambiente, para fazer logout:
+No logout, também remove o localStorage e muda a rota com base no ambiente:
 ```javascript
 const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
     const removeLogin = () => {
@@ -43,10 +52,13 @@ const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
     }
 ```
 
-## **Limitations in Android Development**
+## **Como Usar este projeto**
 
-Due to security restrictions in Android, execute permissions on write-allowed storage is likely forbidden on most stock devices. This prevents some npm scripts from working properly as `npm run` rely on the use of `sh` which requires exec permissions.
 
-The `node` program is also built as a shared library for compatibility with future versions of Android and can only be accessed from the terminal and not `sh`.
+- *npm install*
+  - Para baixar as dependências
+- *npm run start*
+  - Rodar o projeto em modo desenvolvedor, no localhost
 
-For these reasons, using `npm run ...` will not work from the terminal, but entering the command (`webpack`) directly in the terminal will work.
+- *npm run build-prod*
+  - Gera o bundle.js, arquivo necessário para o projeto rodar em produção (no Github Pages, por exemplo).

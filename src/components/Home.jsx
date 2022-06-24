@@ -26,11 +26,7 @@ export default function Home() {
           <li>Componentização</li>
           <li>Router, Navigate e Link</li>
           <li>Props e State</li>
-          <li>
-            Login usando JSON.
-            <br />
-            (Até fiz web service, mas ele não fica online sempre)
-          </li>
+          <li>Comunicação com backend em Laravel usando Fetch</li>
         </ul>
       </div>
     </div>
