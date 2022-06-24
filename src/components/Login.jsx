@@ -107,13 +107,13 @@ function NewUserModal() {
             localStorage.setItem("user", event.target.name.value)
             location.reload()
           } else {
-            setNewUserError(["alert alert-danger","erro ao criar usuário"])
+            setNewUserError(["d-inline-block alert alert-danger w-75",res['message']]) // aqui se trata todas as respostas Nok da API
           } 
         }
       );
 
     } else {
-      setNewUserError(["alert alert-danger","dados inválidos"])
+      setNewUserError(["d-inline-block alert alert-danger w-75","dados inválidos"])
     }
 
     event.preventDefault();
