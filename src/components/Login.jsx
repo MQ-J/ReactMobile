@@ -18,9 +18,6 @@ export default function Login() {
     },[])
   : console.log("faça o login")
 
-  // usuário que irá logar
-  let users = ""
-
   // className da msg de login incorreto
   const [loginError, setLoginError] = useState("d-none");
 
@@ -54,9 +51,12 @@ export default function Login() {
 
   return (
     <div>
+
+      <NewUserModal/>
+      
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto">
         <h2 className="text-center pt-3">Entre na sua conta</h2>
-        <div className="d-flex aligns-items-center justify-content-center pt-3">
+        <div className="d-flex flex-column aligns-items-center justify-content-center pt-3 gap-3">
 
           {/* caixa do login */}
           <div className="border border-secondary rounded p-2 bg-cadet">
@@ -94,8 +94,38 @@ export default function Login() {
             </form>
           </div>
 
+          {/* Novo usuário */}
+          <div className="d-flex justify-content-between border border-secondary rounded p-2 bg-cadet">
+            <div className="w-50">Primeira vez aqui?</div>
+            <button type="button" className="btn text-white bg-orange" data-bs-toggle="modal" data-bs-target="#newUserModal">
+              Criar conta
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
   );
+}
+
+function NewUserModal() {
+  return (
+    <div className="modal fade" id="newUserModal" tabindex="-1" aria-labelledby="modal de novo usuário" aria-hidden="true">
+  <div className="modal-dialog">
+    <div className="modal-content bg-gunmetal">
+      <div className="modal-header bg-cadet border-3 border-dark">
+        <h5 className="modal-title">Novo Usuário</h5>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body">
+        formulário de novo usuário
+      </div>
+      <div className="modal-footer border-3 border-dark">
+        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" className="btn text-white bg-orange">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+  )
 }
