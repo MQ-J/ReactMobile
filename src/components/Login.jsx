@@ -27,8 +27,10 @@ export default function Login() {
   // FUNÇÃO PARA FAZER LOGIN
   const auth = (event) => {
 
+    const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+
     fetch(
-      "https://polar-shelf-77439.herokuapp.com/api/ReactMobile/login",
+      `${url}/api/ReactMobile/login`,
       {
         body: new URLSearchParams(new FormData(event.target)),
         headers: {
