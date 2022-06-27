@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Login from "./components/Login";
 import Respect from "./components/Respect";
 import StarWars from "./components/Starwars";
+import Menu from "./components/Menu";
 import { Footer } from "./components/Footer";
 
 
@@ -25,6 +26,7 @@ export function App() {
             <Route path="/:user" element={<Home />} />
             <Route path="/:user/Respect" element={<Respect />} />
             <Route path="/:user/StarWars" element={<StarWars />} />
+            <Route path="/:user/:menu" element={<Menu />} />
         </Routes>
       </Router>
 

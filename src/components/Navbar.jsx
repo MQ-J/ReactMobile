@@ -9,6 +9,7 @@ export function Navbar(props) {
     const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
     const removeLogin = () => {
         localStorage.removeItem("user")
+        localStorage.removeItem("menu")
         location = url
     }
 
@@ -91,6 +92,9 @@ export function Navbar(props) {
                 </Link>
                 <Link className="nav-link link-dark p-2" to={`/${props.user}/StarWars`}>
                     StarWars
+                </Link>
+                <Link className="nav-link link-dark p-2" to={`/${props.user}/${localStorage.getItem("menu")}`}>
+                    {localStorage.getItem("menu")}
                 </Link>
             </nav >
         </>
