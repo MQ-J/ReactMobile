@@ -93,9 +93,14 @@ export function Navbar(props) {
                 <Link className="nav-link link-dark p-2" to={`/${props.user}/StarWars`}>
                     StarWars
                 </Link>
-                <Link className="nav-link link-dark p-2" to={`/${props.user}/${localStorage.getItem("menu")}`}>
-                    {localStorage.getItem("menu")}
-                </Link>
+                {localStorage.getItem("menu") ? (
+                    <Link className="nav-link link-dark p-2" to={`/${props.user}/${localStorage.getItem("menu")}`}>
+                        {localStorage.getItem("menu")}
+                    </Link>
+                ) : (
+                    <span className="d-none">a</span>
+                )}
+                
             </nav >
         </>
     );
