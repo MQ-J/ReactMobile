@@ -166,6 +166,7 @@ function Form(props) {
       </div>
 
       {props.auth ? "" :
+        <>
         <div className="input-group d-flex justify-content-around align-items-center">
           <label htmlFor="pwd2">Confirmar senha</label>
           <input
@@ -175,6 +176,16 @@ function Form(props) {
             required
           />
         </div>
+        <div className="input-group d-flex justify-content-around align-items-center">
+          <label htmlFor="pwd2">Email</label>
+          <input
+            type="email"
+            name="email"
+            className="form-control m-1 w-50"
+            required
+          />
+      </div>
+      </>
       }
 
       <div className="d-flex flex-column justify-content-center mx-auto w-50 mt-2">

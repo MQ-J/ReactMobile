@@ -11,7 +11,8 @@ let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
 
 ## **Comunicação com Backend Laravel usando API**
 
-O processamento dos dados dos formulários é feito em um projeto Laravel no Heroku. Usando Fetch, determinada função (Web Service) é chamado, e a resposta é tratada, como vemos no exemplo simplificado a seguir:
+O processamento dos dados dos formulários é feito em um projeto Laravel no Heroku, com banco de dados Elephantsql.
+Usando Fetch, determinada função (Web Service) é chamada, e a resposta é tratada, como vemos no exemplo simplificado a seguir:
 
 ```javascript
 const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://realSiteOnline"
