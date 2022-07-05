@@ -13,6 +13,36 @@ export function Navbar(props) {
         location = url
     }
 
+    // apaga a conta atual
+    const deleteUser = () => {
+
+        const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+
+        var formData = new FormData();
+        formData.append('name', props.user);
+
+      fetch(
+        `${host}/api/ReactMobile/deleteUser`,
+        {
+          body: new URLSearchParams(formData),
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          method: "post",
+        }
+      ).then((res) => res.json()).then((res) => {
+
+        if (res['status'] == 'ok') {
+            alert("tchau")
+            removeLogin()
+
+        } else {
+          alert(res['message']) // aqui se trata todas as respostas Nok da API
+        }
+      }
+      );
+    }
+
     return (
         <>
             {/*  Modal de usuário  */}
@@ -23,7 +53,7 @@ export function Navbar(props) {
                 aria-labelledby="modalLabel"
                 aria-hidden="true"
             >
-                <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-dialog modal-dialog-scrollable">
                     <div className="modal-content bg-gunmetal">
 
                         <div className="modal-header bg-cadet border-3 border-dark">
@@ -39,9 +69,20 @@ export function Navbar(props) {
                         </div>
 
                         <div className="modal-body">
-                            <p>Seus dados de usuário</p>
-                            <p>Demais informações</p>
-                            <p>insira EasterEgg aqui</p>
+                            <ul>
+                                <li>Seus dados de usuário</li>
+                                <li>Demais informações</li>
+                                <li>insirir EasterEgg aqui</li>
+                                <li>aqui vai ter muitas informações</li>
+                                <li>existem mais avisões no mar do que submarinos no céu</li>
+                            </ul>
+                            <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={deleteUser}
+                            >
+                                Apagar minha conta
+                            </button>
                         </div>
 
                         <div className="modal-footer border-3 border-dark">
