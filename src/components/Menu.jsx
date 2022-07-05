@@ -11,14 +11,40 @@ export default function Menu() {
   // parâmetro da URL
   const {user} = useParams();
 
-  // blocos em estado inicial
-  const [numBlocos, setNumblocos] = useState([
-    {id: Math.random().toString(32).substr(2,9), title: "titulo", text: "texto"}
-  ]) 
+  // bloco em estado inicial
+  const [numBlocos, setNumblocos] = useState([])
+
+  // pega os blocos do usuário
+  const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+
+  var formData = new FormData();
+  formData.append('name', user);
+
+  fetch(
+    `${host}/api/ReactMobile/getBlocos`,
+    {
+      body: new URLSearchParams(formData),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      method: "post",
+    }
+  ).then((res) => res.json()).then((res) => {
+
+    if (res['status'] == 'ok') {
+      setNumblocos(res['blocos'])
+
+    } else {
+      setNumblocos([
+        {code: Math.random().toString(32).substr(2,9), title: "titulo", text: "texto"}
+      ]) 
+    }
+  }
+  )[numBlocos];
 
   // adiciona blocos
   const addBloco = () => {
-    let bloco = {id: Math.random().toString(32).substr(2,9), title: "titulo", "text": "texto"}
+    let bloco = {code: Math.random().toString(32).substr(2,9), title: "titulo", "text": "texto"}
     setNumblocos(prevbloco => [bloco, ...prevbloco])
   }
 
@@ -34,7 +60,7 @@ export default function Menu() {
     // procura o bloco referente na cópia e edita
     for(var i = 0; i < bloco.length; i++)
     {
-      if(bloco[i].id == event.target.name)
+      if(bloco[i].code == event.target.name)
       {
         if(type == "title") {
           bloco[i].title = event.target.value
@@ -62,17 +88,17 @@ export default function Menu() {
           <button type="button" className="btn btn-sm bg-cadet" onClick={addBloco}>Adicionar bloco</button>
         </div>
         {numBlocos.map((bloco) => 
-          <div key={bloco.id} id={bloco.id} className="bg-dark w-100 mx-auto rounded my-3">
+          <div key={bloco.code} id={bloco.code} className="bg-dark w-100 mx-auto rounded my-3">
             <input 
               className="form-control bg-dark fw-bold text-white border-0" 
-              name={bloco.id} 
+              name={bloco.code} 
               placeholder={bloco.title} 
               onChange={event => attBloco(event)} 
             />
             <textarea 
               className="form-control bg-dark fw-light text-white border-0" 
               rows="3" 
-              name={bloco.id} 
+              name={bloco.code} 
               placeholder={bloco.text} 
               onChange={event => attBloco(event)}>
             </textarea>
