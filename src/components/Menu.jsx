@@ -76,11 +76,38 @@ export default function Menu() {
 
   //sincroniza com o banco
   const DB = (event) => {
-    console.log(event.target.title.value)
-    console.log(event.target.texto.value)
-    console.log(event.target.code.value)
-    console.log(user)
+
     event.preventDefault();
+
+    const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+  
+    var formData = new FormData()
+    formData.append('name', user)
+    formData.append('menu', localStorage.getItem("menu"))
+    formData.append('code', event.target.code.value)
+    formData.append('title', event.target.title.value)
+    formData.append('text', event.target.texto.value)
+
+    fetch(
+      `${host}/api/ReactMobile/updateBlocos`,
+      {
+        body: new URLSearchParams(formData),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "post",
+      }
+      ).then((res) => res.json()).then((res) => {
+
+        if (res['status'] == 'ok') {
+          console.log(res['blocos'])
+          alert("O bloco " + event.target.title.value + " foi salvo")
+        } else {
+          console.log("erro")
+          alert("erro ao salvar, contate o desenvolvedor")
+        }
+      }
+    )
   }
 
   return (
