@@ -2,6 +2,7 @@
 import { Navbar } from "./Navbar";
 import { useParams } from 'react-router-dom';
 import { useState } from "react";
+import "regenerator-runtime" //para async e wait funcionarem
 
 // -------------------------------------
 
@@ -14,33 +15,31 @@ export default function Menu() {
   // bloco em estado inicial
   const [numBlocos, setNumblocos] = useState([])
 
-  // pega os blocos do usuário
-  const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+  async function getBlocos(user) {
 
-  var formData = new FormData();
-  formData.append('name', user);
-
-  fetch(
-    `${host}/api/ReactMobile/getBlocos`,
-    {
-      body: new URLSearchParams(formData),
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      method: "post",
-    }
-  ).then((res) => res.json()).then((res) => {
-
-    if (res['status'] == 'ok') {
-      setNumblocos(res['blocos'])
-
-    } else {
-      setNumblocos([
-        {code: Math.random().toString(32).substr(2,9), title: "titulo", text: "texto"}
-      ]) 
-    }
+    const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+  
+    var formData = new FormData()
+    formData.append('name', user)
+  
+    const response = await fetch(
+      `${host}/api/ReactMobile/getBlocos`,
+      {
+        body: new URLSearchParams(formData),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "post",
+      }
+    );
+    
+    const data = await response.json();
+    setNumblocos(data.blocos)
   }
-  )[numBlocos];
+
+  if(!numBlocos.length){ 
+    getBlocos(user)
+  }
 
   // adiciona blocos
   const addBloco = () => {
@@ -74,8 +73,7 @@ export default function Menu() {
       }
     }
   }
-  
-  
+
   return (
     <div>
 
