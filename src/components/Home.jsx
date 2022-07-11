@@ -27,6 +27,15 @@ export default function Home() {
           <li>Router, Navigate e Link</li>
           <li>Props e State</li>
           <li>Comunicação com backend em Laravel usando Fetch</li>
+          <li>Integração com banco de dados ElephantSQL</li>
+        </ul>
+        <hr />
+        <h5>Tecnologias utilizadas</h5>
+        <ul>
+          <li><a className="text-decoration-none text-bootstrap" href="https://getbootstrap.com/docs/5.0/getting-started/introduction/">Bootstrap 5</a></li>
+          <li><a className="text-decoration-none text-react" href="https://pt-br.reactjs.org/">React JS</a></li>
+          <li><a className="text-decoration-none text-laravel" href="https://laravel.com/">Laravel</a></li>
+          <li><a className="text-decoration-none text-elehantsql" href="https://customer.elephantsql.com/">ElephantSQL</a></li>
         </ul>
       </div>
     </div>

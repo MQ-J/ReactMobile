@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 
 export function Navbar(props) {
 
+    //versão do site
+    const { version: appVersion } = require('/package.json');
+
     // controla o logout
     const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
     const removeLogin = () => {
@@ -69,13 +72,24 @@ export function Navbar(props) {
                         </div>
 
                         <div className="modal-body">
+                            <h5>Suas informações</h5>
                             <ul>
-                                <li>Seus dados de usuário</li>
-                                <li>Demais informações</li>
-                                <li>insirir EasterEgg aqui</li>
+                                <li>Seus dados de usuário ficarão aqui</li>
+                                <li>Demais informações também</li>
                                 <li>aqui vai ter muitas informações</li>
                                 <li>existem mais avisões no mar do que submarinos no céu</li>
+                                <li><a class="text-decoration-none text-white" role="button" href="https://pt.wikipedia.org/wiki/Capad%C3%B3cia">capadócia</a></li>
                             </ul>
+                            <hr />
+                            <h5>Sobre este Site</h5>
+                            <ul>
+                                <li>Código fonte: <a class="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J/ReactMobile">ReactMobile</a> </li>
+                                <li>Versão: {appVersion}</li>
+                                <li>Desenvolvedor: <a class="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J">MQJ</a> </li>
+                            </ul>
+                            <hr />
+                            <h5>Apague seus dados aqui</h5>
+                            <p>Tenha em mente que isso apagará <b>todas as suas anotações</b>, junto com seu email, senha e usuário.</p>
                             <button
                                 type="button"
                                 className="btn btn-danger"
@@ -128,9 +142,9 @@ export function Navbar(props) {
                 <Link className="nav-link link-dark p-2" to={`/${props.user}`}>
                     Home
                 </Link>
-                <Link className="nav-link link-dark p-2" to={`/${props.user}/Respect`}>
+                {/* <Link className="nav-link link-dark p-2" to={`/${props.user}/Respect`}>
                     Respeito aos pais
-                </Link>
+                </Link> */}
                 <Link className="nav-link link-dark p-2" to={`/${props.user}/StarWars`}>
                     StarWars
                 </Link>

@@ -20,3 +20,19 @@ body {
 .bg-orange {
     background-color: #f96900;
 }
+
+.text-bootstrap {
+    color: #7952b3;
+}
+
+.text-react {
+    color: #61dafb
+}
+
+.text-elehantsql {
+    color: #64656e;
+}
+
+.text-laravel {
+    color: #f9322c
+}
