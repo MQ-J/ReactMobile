@@ -106,6 +106,7 @@ function NewUserModal() {
 
         if (res['status'] == 'ok') {
           localStorage.setItem("user", event.target.name.value)
+          localStorage.setItem("menu", 'tarefas')
           location.reload()
         } else {
           setNewUserError(["d-inline-block alert alert-danger w-75", res['message']]) // aqui se trata todas as respostas Nok da API
