@@ -74,6 +74,15 @@ export default function Menu() {
     }
   }
 
+  //sincroniza com o banco
+  const DB = (event) => {
+    console.log(event.target.title.value)
+    console.log(event.target.texto.value)
+    console.log(event.target.code.value)
+    console.log(user)
+    event.preventDefault();
+  }
+
   return (
     <div>
 
@@ -87,19 +96,26 @@ export default function Menu() {
         </div>
         {numBlocos.map((bloco) => 
           <div key={bloco.code} id={bloco.code} className="bg-dark w-100 mx-auto rounded my-3">
-            <input 
-              className="form-control bg-dark fw-bold text-white border-0" 
-              name={bloco.code} 
-              placeholder={bloco.title} 
-              onChange={event => attBloco(event)} 
-            />
-            <textarea 
-              className="form-control bg-dark fw-light text-white border-0" 
-              rows="3" 
-              name={bloco.code} 
-              placeholder={bloco.text} 
-              onChange={event => attBloco(event)}>
-            </textarea>
+            <form onSubmit={DB}>
+              <input 
+                className="form-control bg-dark fw-bold text-white border-0" 
+                name="title"
+                defaultValue={bloco.title} 
+                onChange={event => attBloco(event)} 
+              />
+              <textarea 
+                className="form-control bg-dark fw-light text-white border-0" 
+                rows="3" 
+                name="texto"
+                defaultValue={bloco.text} 
+                onChange={event => attBloco(event)}>
+              </textarea>
+              <input value={bloco.code} name="code" readOnly hidden/>
+
+              <div className="position-relative p-3">
+                <button className="btn btn-sm text-white bg-orange position-absolute bottom-0 end-0" type="submit">salvar</button>
+              </div>
+            </form>
           </div>
         )}
       </div>
