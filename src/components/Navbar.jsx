@@ -78,14 +78,14 @@ export function Navbar(props) {
                                 <li>Demais informações também</li>
                                 <li>aqui vai ter muitas informações</li>
                                 <li>existem mais avisões no mar do que submarinos no céu</li>
-                                <li><a class="text-decoration-none text-white" role="button" href="https://pt.wikipedia.org/wiki/Capad%C3%B3cia">capadócia</a></li>
+                                <li><a className="text-decoration-none text-white" role="button" href="https://pt.wikipedia.org/wiki/Capad%C3%B3cia">capadócia</a></li>
                             </ul>
                             <hr />
                             <h5>Sobre este Site</h5>
                             <ul>
-                                <li>Código fonte: <a class="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J/ReactMobile">ReactMobile</a> </li>
+                                <li>Código fonte: <a className="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J/ReactMobile">ReactMobile</a> </li>
                                 <li>Versão: {appVersion}</li>
-                                <li>Desenvolvedor: <a class="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J">MQJ</a> </li>
+                                <li>Desenvolvedor: <a className="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J">MQJ</a> </li>
                             </ul>
                             <hr />
                             <h5>Apague seus dados aqui</h5>

@@ -4,6 +4,9 @@ import { useParams } from 'react-router-dom';
 import { useState } from "react";
 import "regenerator-runtime" //para async e wait funcionarem
 
+//icone bootstrap
+import "bootstrap-icons/font/bootstrap-icons.css";
+
 // -------------------------------------
 
 // definindo classe Filho como um Componente (isso é um componente de classe)
@@ -110,6 +113,36 @@ export default function Menu() {
     )
   }
 
+  const deleteBloco = (code) => {
+    
+    const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+  
+    var formData = new FormData()
+    formData.append('name', user)
+    formData.append('code', code)
+
+    fetch(
+      `${host}/api/ReactMobile/deleteBloco`,
+      {
+        body: new URLSearchParams(formData),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        method: "post",
+      }
+      ).then((res) => res.json()).then((res) => {
+
+        if (res['status'] == 'ok') {
+          alert("Bloco apagado")
+          setNumblocos([]) // zera os blocos para que o código busque de novo no banco
+        } else {
+          console.log("deleteBloco nao foi ok")
+          alert("erro ao apagar o bloco, contate o desenvolvedor")
+        }
+      }
+    )
+  }
+
   return (
     <div>
 
@@ -139,8 +172,9 @@ export default function Menu() {
               </textarea>
               <input value={bloco.code} name="code" readOnly hidden/>
 
-              <div className="position-relative p-3">
-                <button className="btn btn-sm text-white bg-orange position-absolute bottom-0 end-0" type="submit">salvar</button>
+              <div className="d-flex justify-content-end gap-3 p-2">
+                <button className="btn-success btn-sm rounded-circle" type="submit" style={{backgroundColor: '#212529'}}><i className="bi bi-check-circle text-success"></i></button>
+                <button className="btn-danger btn-sm rounded-circle" type="button" onClick={() => deleteBloco(bloco.code)} style={{backgroundColor: '#212529'}}><i className="bi bi-dash-circle text-danger"></i></button>              
               </div>
             </form>
           </div>
