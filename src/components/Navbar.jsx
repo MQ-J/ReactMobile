@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 
 export function Navbar(props) {
 
+    //email
+    const email = localStorage.getItem("email")
+
     //versão do site
     const { version: appVersion } = require('/package.json');
 
@@ -13,6 +16,7 @@ export function Navbar(props) {
     const removeLogin = () => {
         localStorage.removeItem("user")
         localStorage.removeItem("menu")
+        localStorage.removeItem("email")
         location = url
     }
 
@@ -61,7 +65,7 @@ export function Navbar(props) {
 
                         <div className="modal-header bg-cadet border-3 border-dark">
                             <h5 className="modal-title" id="modalLabel">
-                                {props.user}
+                                Configurações
                             </h5>
                             <button
                                 type="button"
@@ -72,23 +76,20 @@ export function Navbar(props) {
                         </div>
 
                         <div className="modal-body">
-                            <h5>Suas informações</h5>
+                            <h5>Informações pessoais</h5>
                             <ul>
-                                <li>Seus dados de usuário ficarão aqui</li>
-                                <li>Demais informações também</li>
-                                <li>aqui vai ter muitas informações</li>
-                                <li>existem mais avisões no mar do que submarinos no céu</li>
-                                <li><a className="text-decoration-none text-white" role="button" href="https://pt.wikipedia.org/wiki/Capad%C3%B3cia">capadócia</a></li>
+                                <li><b>Usuário: </b>{props.user}</li>
+                                <li><b>Email: </b>{email}</li>
                             </ul>
                             <hr />
-                            <h5>Sobre este Site</h5>
+                            <h5>Sobre este site</h5>
                             <ul>
                                 <li>Código fonte: <a className="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J/ReactMobile">ReactMobile</a> </li>
                                 <li>Versão: {appVersion}</li>
                                 <li>Desenvolvedor: <a className="btn btn-outline-success p-0" role="button" href="https://github.com/MQ-J">MQJ</a> </li>
                             </ul>
                             <hr />
-                            <h5>Apague seus dados aqui</h5>
+                            <h5>Apagar minha conta</h5>
                             <p>Tenha em mente que isso apagará <b>todas as suas anotações</b>, junto com seu email, senha e usuário.</p>
                             <button
                                 type="button"

@@ -19,15 +19,15 @@ export default function Home() {
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto">
         <h2 className="text-center pt-3">Página Principal</h2>
         <p className="text-justify">
-          Veja bem, este site foi feito em React para servir como exemplo para
-          mim em outros projetos. Alguns dos conceitos aplicados foram:
+          Veja bem, este site foi feito com React JS para servir como exemplo em outros projetos. 
+          Alguns dos conceitos aplicados foram:
         </p>
         <ul>
           <li>Componentização</li>
-          <li>Router, Navigate e Link</li>
+          <li>Router, Navigate, useEffect, useParams</li>
           <li>Props e State</li>
-          <li>Comunicação com backend em Laravel usando Fetch</li>
-          <li>Integração com banco de dados ElephantSQL</li>
+          <li>Comunicação com backend em Laravel usando Fetch (API's)</li>
+          <li>Integração com banco de dados PostgreSQL</li>
         </ul>
         <hr />
         <h5>Tecnologias utilizadas</h5>

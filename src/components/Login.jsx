@@ -39,6 +39,7 @@ export default function Login() {
 
       if (res['status'] == 'ok') {
         localStorage.setItem("user", event.target.name.value)
+        localStorage.setItem("email", res['email'])
         localStorage.setItem("menu", res['menu'])
         navigate(event.target.name.value)
       } else {
