@@ -11,6 +11,9 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
 
+  //versão do site
+  const { version: appVersion } = require('/package.json');
+
   // para acessar módulo Home
   const navigate = useNavigate();
 
@@ -79,6 +82,7 @@ export default function Login() {
             </button>
           </div>
 
+          <p>Versão: {appVersion}</p>
         </div>
       </div>
     </div>
