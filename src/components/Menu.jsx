@@ -7,6 +7,9 @@ import "regenerator-runtime" //para async e wait funcionarem
 //icone bootstrap
 import "bootstrap-icons/font/bootstrap-icons.css";
 
+//carregando
+import ClipLoader from "react-spinners/ClipLoader";
+
 // -------------------------------------
 
 // definindo classe Filho como um Componente (isso é um componente de classe)
@@ -152,7 +155,11 @@ export default function Menu() {
         <div>
           <button type="button" className="btn btn-sm bg-cadet" onClick={addBloco}>Adicionar bloco</button>
         </div>
-        {numBlocos.map((bloco) =>
+        
+        {!numBlocos.length ? (
+          <ClipLoader color={"#ffffff"} loading={true} cssOverride={{display: "block", margin: "0 auto",}} size={30} />
+        ) : (
+          numBlocos.map((bloco) =>
           <div key={bloco.code} id={bloco.code} className="bg-dark w-100 mx-auto rounded my-3">
             <form onSubmit={DB}>
               <input
@@ -182,6 +189,7 @@ export default function Menu() {
               </div>
             </form>
           </div>
+        )
         )}
       </div>
     </div>

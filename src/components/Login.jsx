@@ -1,6 +1,9 @@
 // importando aquela coisa de estado
 import { useState, useEffect } from "react";
 
+//carregando
+import ClipLoader from "react-spinners/ClipLoader";
+
 // para redirecionar
 import { useNavigate } from "react-router-dom";
 
@@ -144,6 +147,14 @@ function NewUserModal() {
 }
 
 function Form(props) {
+
+  let [loading, setLoading] = useState(false);
+
+  const override = {
+    display: "block",
+    margin: "0 auto",
+  };
+
   return (
     <form onSubmit={props.auth ? props.auth : props.newUser}>
 
@@ -191,8 +202,12 @@ function Form(props) {
       }
 
       <div className="d-flex flex-column justify-content-center mx-auto w-50 mt-2">
-        <button type="submit" className="btn text-white bg-orange">
-          {props.auth ? "login" : "Criar usuário"}
+        <button type="submit" className="btn text-white bg-orange" onClick={() => {setLoading(true)}}>
+          {!loading ? (
+            props.auth ? "login" : "Criar usuário"
+          ) : (
+            <ClipLoader color={"#ffffff"} loading={loading} cssOverride={override} size={20} />
+          )}
         </button>
       </div>
     </form>
