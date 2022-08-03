@@ -1,3 +1,14 @@
+## **Banco de dados**
+
+Estas são as classes deste projeto, onde o USER é você😊, BLOCO é um bloco de anotação e MENU são os seus tópicos.<br>
+O banco utilizado foi o [ElephantSQL](https://customer.elephantsql.com), que funciona com **PostgreSQL**.
+
+```mermaid
+erDiagram
+    USER ||--|{ BLOCO : belongs
+    BLOCO }|--|| MENU : contains
+```
+
 ## **Alterar rotas com base no ambiente**
 
 Quando o modo do webpack for diferente de 'development', a rota é alterada para se encaixar no caminho dos arquivos no Github Pages. Trecho simplificado do arquivo **[App.jsx](https://github.com/MQ-J/ReactMobile/blob/main/src/App.jsx)** a seguir:
