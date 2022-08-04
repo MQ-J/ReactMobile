@@ -14,6 +14,9 @@ export default function Login() {
   //versão do site
   const { version: appVersion } = require('/package.json');
 
+  //gif de carregando
+  let [loading, setLoading] = useState(false);
+
   // para acessar módulo Home
   const navigate = useNavigate();
 
@@ -29,6 +32,8 @@ export default function Login() {
 
   // FUNÇÃO PARA FAZER LOGIN
   const auth = (event) => {
+
+    setLoading(true)
 
     const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
 
@@ -49,6 +54,7 @@ export default function Login() {
         localStorage.setItem("menu", res['menu'])
         navigate(event.target.name.value)
       } else {
+        setLoading(false)
         setLoginError("alert alert-danger")
       }
     }
@@ -60,7 +66,7 @@ export default function Login() {
   return (
     <div>
 
-      <NewUserModal />
+      <NewUserModal loading={loading} setLoading={setLoading} />
 
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto">
         <h2 className="text-center pt-3">Entre na sua conta</h2>
@@ -71,7 +77,7 @@ export default function Login() {
 
             <div className={loginError} role="alert">Login Incorreto</div>
 
-            <Form auth={auth} />
+            <Form auth={auth} loading={loading} setLoading={setLoading} />
           </div>
 
           {/* Novo usuário */}
@@ -89,7 +95,7 @@ export default function Login() {
   );
 }
 
-function NewUserModal() {
+function NewUserModal(props) {
 
   // className da msg de login incorreto
   const [newUserError, setNewUserError] = useState(["d-none", "a"]);
@@ -98,6 +104,8 @@ function NewUserModal() {
   const newUser = (event) => {
 
     if (event.target.pwd.value === event.target.pwd2.value) {
+
+      props.setLoading(true)
 
       const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
 
@@ -117,6 +125,7 @@ function NewUserModal() {
           localStorage.setItem("menu", 'tarefas')
           location.reload()
         } else {
+          props.setLoading(false)
           setNewUserError(["d-inline-block alert alert-danger w-75", res['message']]) // aqui se trata todas as respostas Nok da API
         }
       }
@@ -138,7 +147,7 @@ function NewUserModal() {
             <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div className="modal-body m-3">
-            <Form newUser={newUser} />
+            <Form newUser={newUser} loading={props.loading} setLoading={props.setLoading} />
           </div>
           <div className="d-flex justify-content-between modal-footer border-3 border-dark">
             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -151,13 +160,6 @@ function NewUserModal() {
 }
 
 function Form(props) {
-
-  let [loading, setLoading] = useState(false);
-
-  const override = {
-    display: "block",
-    margin: "0 auto",
-  };
 
   return (
     <form onSubmit={props.auth ? props.auth : props.newUser}>
@@ -206,11 +208,11 @@ function Form(props) {
       }
 
       <div className="d-flex flex-column justify-content-center mx-auto w-50 mt-2">
-        <button type="submit" className="btn text-white bg-orange" onClick={() => {setLoading(true)}}>
-          {!loading ? (
+        <button type="submit" className="btn text-white bg-orange">
+          {!props.loading ? (
             props.auth ? "login" : "Criar usuário"
           ) : (
-            <ClipLoader color={"#ffffff"} loading={loading} cssOverride={override} size={20} />
+            <ClipLoader color={"#ffffff"} loading={props.loading} cssOverride={{display: "block", margin: "0 auto"}} size={20} />
           )}
         </button>
       </div>
