@@ -28,26 +28,26 @@ export function Navbar(props) {
         var formData = new FormData();
         formData.append('name', props.user);
 
-      fetch(
-        `${host}/api/ReactMobile/deleteUser`,
-        {
-          body: new URLSearchParams(formData),
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-          method: "post",
-        }
-      ).then((res) => res.json()).then((res) => {
+        fetch(
+            `${host}/api/ReactMobile/deleteUser`,
+            {
+                body: new URLSearchParams(formData),
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                method: "post",
+            }
+        ).then((res) => res.json()).then((res) => {
 
-        if (res['status'] == 'ok') {
-            alert("tchau")
-            removeLogin()
+            if (res['status'] == 'ok') {
+                alert("tchau")
+                removeLogin()
 
-        } else {
-          alert(res['message']) // aqui se trata todas as respostas Nok da API
+            } else {
+                alert(res['message']) // aqui se trata todas as respostas Nok da API
+            }
         }
-      }
-      );
+        );
     }
 
     return (
@@ -55,7 +55,7 @@ export function Navbar(props) {
             {/*  Modal de usuário  */}
             <div
                 className="modal fade"
-                id="modal"
+                id="modalUser"
                 tabIndex="-1"
                 aria-labelledby="modalLabel"
                 aria-hidden="true"
@@ -114,6 +114,46 @@ export function Navbar(props) {
                 </div>
             </div>
 
+            {/*  Modal de menu  */}
+            <div
+                className="modal fade"
+                id="modalMenu"
+                tabIndex="-1"
+                aria-labelledby="modalLabel"
+                aria-hidden="true"
+            >
+                <div className="modal-dialog modal-dialog-scrollable">
+                    <div className="modal-content bg-gunmetal">
+
+                        <div className="modal-header bg-cadet border-3 border-dark">
+                            <h5 className="modal-title">
+                                Criar menu
+                            </h5>
+                            <button
+                                type="button"
+                                className="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                            ></button>
+                        </div>
+
+                        <div className="modal-body">
+                            a
+                        </div>
+
+                        <div className="modal-footer border-3 border-dark">
+                            <button
+                                type="button"
+                                className="btn btn-secondary"
+                                data-bs-dismiss="modal"
+                            >
+                                voltar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {/* Barra de navegação */}
             < nav className="navbar justify-content-around mb-2 bg-cadet" >
 
@@ -121,7 +161,7 @@ export function Navbar(props) {
                 < button
                     className="btn p-2"
                     data-bs-toggle="modal"
-                    data-bs-target="#modal"
+                    data-bs-target="#modalUser"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -149,14 +189,23 @@ export function Navbar(props) {
                 <Link className="nav-link link-dark p-2" to={`/${props.user}/StarWars`}>
                     StarWars
                 </Link>
-                {localStorage.getItem("menu") ? (
-                    <Link className="nav-link link-dark p-2" to={`/${props.user}/${localStorage.getItem("menu")}`}>
-                        {localStorage.getItem("menu")}
-                    </Link>
-                ) : (
-                    <span className="d-none">a</span>
-                )}
-                
+                {localStorage.getItem("menu").split(" ").map(menu => {
+                    if(menu != "")
+                    return (<Link className="nav-link link-dark p-2" to={`/${props.user}/${menu}`}>
+                        {menu}
+                    </Link>)
+                })}
+                <button 
+                    className="btn btn-outline-success btn-sm rounded-circle" 
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalMenu"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                    </svg>
+                </button>
+
             </nav >
         </>
     );

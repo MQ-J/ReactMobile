@@ -17,6 +17,7 @@ export default function Menu() {
 
   // parâmetro da URL
   const { user } = useParams();
+  const { menu } = useParams();
 
   // bloco em estado inicial
   const [numBlocos, setNumblocos] = useState([])
@@ -27,6 +28,7 @@ export default function Menu() {
 
     var formData = new FormData()
     formData.append('name', user)
+    formData.append('menu', menu)
 
     const response = await fetch(
       `${host}/api/ReactMobile/getBlocos`,
@@ -87,7 +89,7 @@ export default function Menu() {
 
     var formData = new FormData()
     formData.append('name', user)
-    formData.append('menu', localStorage.getItem("menu"))
+    formData.append('menu', menu)
     formData.append('code', event.target.code.value)
     formData.append('title', event.target.title.value)
     formData.append('text', event.target.texto.value)
@@ -151,7 +153,7 @@ export default function Menu() {
 
       {/* conteúdo */}
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto" style={{ minWidth: 200 }}>
-        <h2 className="text-center pt-3">{localStorage.getItem("menu")}</h2>
+        <h2 className="text-center pt-3">{menu}</h2>
         <div className="mb-3">
           <button type="button" className="btn btn-sm bg-cadet" onClick={addBloco}>Adicionar bloco</button>
         </div>
