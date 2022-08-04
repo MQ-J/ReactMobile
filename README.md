@@ -1,7 +1,13 @@
-## **Banco de dados**
+<h1 align="center">ReactMobile</h1>
 
-Estas são as classes deste projeto, onde o USER é você😊, BLOCO é um bloco de anotação e MENU são os seus tópicos.<br>
-O banco utilizado foi o [ElephantSQL](https://customer.elephantsql.com), que funciona com **PostgreSQL**.
+> Quer melhorar este projeto? Sinta-se livre para [contribuir](https://github.com/MQ-J/ReactMobile/pulls)
+
+> Tem idéia de um nome melhor pra ele? Mande sua sujestão [aqui!](https://github.com/MQ-J/ReactMobile/issues)
+
+# Banco de dados
+Estas são as classes deste projeto, onde o USER é você😊, BLOCO é um bloco de anotação e MENU são os seus tópicos.
+
+O banco utilizado foi o [ElephantSQL](https://customer.elephantsql.com), que funciona com PostgreSQL.
 
 ```mermaid
 erDiagram
@@ -9,9 +15,11 @@ erDiagram
     BLOCO }|--|| MENU : contains
 ```
 
-## **Alterar rotas com base no ambiente**
+# Alterar rotas com base no ambiente
 
-Quando o modo do webpack for diferente de 'development', a rota é alterada para se encaixar no caminho dos arquivos no Github Pages. Trecho simplificado do arquivo **[App.jsx](https://github.com/MQ-J/ReactMobile/blob/main/src/App.jsx)** a seguir:
+Quando o modo do webpack for diferente de 'development', a rota é alterada para se encaixar no caminho dos arquivos no Github Pages.
+
+Trecho simplificado do arquivo **[App.jsx](https://github.com/MQ-J/ReactMobile/blob/main/src/App.jsx)** a seguir:
 
 ```javascript
 let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
@@ -20,9 +28,10 @@ let basename = process.env.NODE_ENV == "development" ? "" : "/ReactMobile/dist"
 </Router>
 ```
 
-## **Comunicação com Backend Laravel usando API**
+# Comunicação com Backend Laravel usando API
 
 O processamento dos dados dos formulários é feito em um projeto Laravel no Heroku, com banco de dados Elephantsql.
+
 Usando Fetch, determinada função (Web Service) é chamada, e a resposta é tratada, como vemos no exemplo simplificado a seguir:
 
 ```javascript
@@ -43,7 +52,7 @@ const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "h
       );
 ```
 
-## **Login com LocalStorage e Logout**
+# Login com LocalStorage e Logout
 
 Este projeto usa LocalStorage para pular o formário de login quando já houver um usuário logado no navegador:
 
@@ -56,6 +65,7 @@ Este projeto usa LocalStorage para pular o formário de login quando já houver 
 ```
 
 No logout, também remove o localStorage e muda a rota com base no ambiente:
+
 ```javascript
 const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
     const removeLogin = () => {
@@ -64,7 +74,7 @@ const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
     }
 ```
 
-## **Como Usar este projeto**
+# Como Usar este projeto
 
 
 - *npm install*
