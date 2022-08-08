@@ -1,6 +1,12 @@
 // para redirecionar
 import { Link } from "react-router-dom";
 
+// importando aquela coisa de estado
+import { useState } from "react";
+
+//carregando
+import ClipLoader from "react-spinners/ClipLoader";
+
 // -------------------------------------
 
 export function Navbar(props) {
@@ -10,6 +16,9 @@ export function Navbar(props) {
 
     //versão do site
     const { version: appVersion } = require('/package.json');
+
+    //gif de carregando
+    let [loading, setLoading] = useState(false);
 
     // controla o logout
     const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
@@ -49,6 +58,37 @@ export function Navbar(props) {
         }
         );
     }
+
+    //cria menu
+    const addMenu = (event) => {
+
+        setLoading(true)
+    
+        const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
+    
+        fetch(
+        `${url}/api/ReactMobile/newMenu`,
+        {
+            body: new URLSearchParams(new FormData(event.target)),
+            headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            },
+            method: "post",
+        }
+        ).then((res) => res.json()).then((res) => {
+
+            if (res['status'] == 'ok') {
+                setLoading(false)
+                removeLogin()
+            } else {
+                setLoading(false)
+                alert("não consegui criar, desculpa")
+            }
+        }
+        );
+    
+        event.preventDefault();
+      };
 
     return (
         <>
@@ -127,7 +167,7 @@ export function Navbar(props) {
 
                         <div className="modal-header bg-cadet border-3 border-dark">
                             <h5 className="modal-title">
-                                Criar menu
+                                Criar tópico
                             </h5>
                             <button
                                 type="button"
@@ -137,19 +177,55 @@ export function Navbar(props) {
                             ></button>
                         </div>
 
-                        <div className="modal-body">
-                            a
-                        </div>
+                        <form onSubmit={addMenu}>
 
-                        <div className="modal-footer border-3 border-dark">
-                            <button
-                                type="button"
-                                className="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                            >
-                                voltar
-                            </button>
-                        </div>
+                            <div className="modal-body">
+                                <div className="input-group d-flex justify-content-around align-items-center w-75">
+                                    <label htmlFor="nome">Nome:</label>
+                                    <input
+                                        type="text"
+                                        name="nome"
+                                        className="form-control m-1 w-50"
+                                        required
+                                    />
+                                </div>
+                                <input
+                                    type="text"
+                                    name="user"
+                                    value={props.user}
+                                    readOnly
+                                    hidden
+                                />
+                                <input
+                                    type="text"
+                                    name="code"
+                                    value={Math.random().toString(32).substr(2, 9)}
+                                    readOnly
+                                    hidden
+                                />
+                                
+                                <div className="pt-2">Será necessário logar novamente após criar um novo tópico</div>
+                            </div>
+
+                            <div className="modal-footer border-3 border-dark gap-2">
+
+                                <button type="submit" className="btn text-white bg-orange">
+                                    {loading ? (
+                                        <ClipLoader color={"#ffffff"} loading={loading} cssOverride={{display: "block", margin: "0 auto"}} size={20} />
+                                    ) : (
+                                        "Criar"
+                                    )}
+                                </button>
+
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    data-bs-dismiss="modal"
+                                >
+                                    Voltar
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -190,13 +266,13 @@ export function Navbar(props) {
                     StarWars
                 </Link>
                 {localStorage.getItem("menu").split(" ").map(menu => {
-                    if(menu != "")
-                    return (<Link className="nav-link link-dark p-2" to={`/${props.user}/${menu}`}>
-                        {menu}
-                    </Link>)
+                    if (menu != "")
+                        return (<Link className="nav-link link-dark p-2" to={`/${props.user}/${menu}`}>
+                            {menu}
+                        </Link>)
                 })}
-                <button 
-                    className="btn btn-outline-success btn-sm rounded-circle" 
+                <button
+                    className="btn btn-outline-success btn-sm rounded-circle"
                     data-bs-toggle="modal"
                     data-bs-target="#modalMenu"
                 >
