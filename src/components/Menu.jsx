@@ -1,7 +1,7 @@
 // para redirecionar
 import { Navbar } from "./Navbar";
 import { useParams } from 'react-router-dom';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "regenerator-runtime" //para async e wait funcionarem
 
 //icone bootstrap
@@ -18,6 +18,10 @@ export default function Menu() {
   // parâmetro da URL
   const { user } = useParams();
   const { menu } = useParams();
+
+  useEffect(() => {
+    setNumblocos([]) // zera os blocos para que o código busque de novo no banco
+  }, [menu]);
 
   // bloco em estado inicial
   const [numBlocos, setNumblocos] = useState([])
@@ -180,11 +184,11 @@ export default function Menu() {
               <input value={bloco.code} name="code" readOnly hidden />
 
               <div className="d-flex justify-content-end gap-3 p-2">
-                <button className="btn-success btn-sm rounded-circle" type="submit" style={{ backgroundColor: '#212529' }}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-check-circle text-success" viewBox="0 0 16 16">
+                <button className="btn btn-link link-success" type="submit" style={{ backgroundColor: '#212529' }}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-check-circle text-success" viewBox="0 0 16 16">
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                   <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
                 </svg></button>
-                <button className="btn-danger btn-sm rounded-circle" type="button" onClick={() => deleteBloco(bloco.code)} style={{ backgroundColor: '#212529' }}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-dash-circle text-danger" viewBox="0 0 16 16">
+                <button className="btn btn-link link-danger" type="button" onClick={() => deleteBloco(bloco.code)} style={{ backgroundColor: '#212529' }}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-dash-circle text-danger" viewBox="0 0 16 16">
                   <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
                   <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
                 </svg></button>

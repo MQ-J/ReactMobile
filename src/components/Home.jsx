@@ -17,7 +17,7 @@ export default function Home() {
 
       {/* conteúdo */}
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto">
-        <h2 className="text-center pt-3">Página Principal</h2>
+        <h2 className="text-center pt-3">Sobre este Site</h2>
         <p className="text-justify">
           Veja bem, este site foi feito com React JS para servir como exemplo em outros projetos. 
           Alguns dos conceitos aplicados foram:

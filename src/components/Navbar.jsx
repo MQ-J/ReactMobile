@@ -63,18 +63,18 @@ export function Navbar(props) {
     const addMenu = (event) => {
 
         setLoading(true)
-    
+
         const url = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
-    
+
         fetch(
-        `${url}/api/ReactMobile/newMenu`,
-        {
-            body: new URLSearchParams(new FormData(event.target)),
-            headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            },
-            method: "post",
-        }
+            `${url}/api/ReactMobile/newMenu`,
+            {
+                body: new URLSearchParams(new FormData(event.target)),
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                method: "post",
+            }
         ).then((res) => res.json()).then((res) => {
 
             if (res['status'] == 'ok') {
@@ -86,9 +86,9 @@ export function Navbar(props) {
             }
         }
         );
-    
+
         event.preventDefault();
-      };
+    };
 
     return (
         <>
@@ -203,7 +203,7 @@ export function Navbar(props) {
                                     readOnly
                                     hidden
                                 />
-                                
+
                                 <div className="pt-2">Será necessário logar novamente após criar um novo tópico</div>
                             </div>
 
@@ -211,7 +211,7 @@ export function Navbar(props) {
 
                                 <button type="submit" className="btn text-white bg-orange">
                                     {loading ? (
-                                        <ClipLoader color={"#ffffff"} loading={loading} cssOverride={{display: "block", margin: "0 auto"}} size={20} />
+                                        <ClipLoader color={"#ffffff"} loading={loading} cssOverride={{ display: "block", margin: "0 auto" }} size={20} />
                                     ) : (
                                         "Criar"
                                     )}
@@ -231,57 +231,110 @@ export function Navbar(props) {
             </div>
 
             {/* Barra de navegação */}
-            < nav className="navbar justify-content-around mb-2 bg-cadet" >
+            < nav className="navbar navbar-expand-lg justify-content-around mb-2 bg-cadet" >
 
-                {/* icone de usuário */}
-                < button
-                    className="btn p-2"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalUser"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="32"
-                        height="32"
-                        fill="currentColor"
-                        className="bi bi-person-circle"
-                        viewBox="0 0 16 16"
+                <div className="container-fluid">
+
+                    {/* sanduíche-íche */}
+                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-list" viewBox="0 0 16 16">
+                            <path fillRule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                        </svg>
+                    </button>
+
+                    {/* icone de usuário */}
+                    < button
+                        className="btn p-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalUser"
                     >
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
-                        <path
-                            fillRule="evenodd"
-                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
-                        />
-                    </svg>
-                </button >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="32"
+                            height="32"
+                            fill="currentColor"
+                            className="bi bi-person-circle"
+                            viewBox="0 0 16 16"
+                        >
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                            <path
+                                fillRule="evenodd"
+                                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                            />
+                        </svg>
+                    </button >
 
-                {/* páginas */}
-                <Link className="nav-link link-dark p-2" to={`/${props.user}`}>
-                    Home
-                </Link>
-                {/* <Link className="nav-link link-dark p-2" to={`/${props.user}/Respect`}>
-                    Respeito aos pais
-                </Link> */}
-                <Link className="nav-link link-dark p-2" to={`/${props.user}/StarWars`}>
-                    StarWars
-                </Link>
-                {localStorage.getItem("menu").split(" ").map(menu => {
-                    if (menu != "")
-                        return (<Link className="nav-link link-dark p-2" to={`/${props.user}/${menu}`}>
-                            {menu}
-                        </Link>)
-                })}
-                <button
-                    className="btn btn-outline-success btn-sm rounded-circle"
-                    data-bs-toggle="modal"
-                    data-bs-target="#modalMenu"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus-circle" viewBox="0 0 16 16">
-                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                    </svg>
-                </button>
+                    {/* parte que abre e fecha */}
+                    <div className="collapse navbar-collapse" id="navbarScroll">
+                        <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style={{ "--bs-scroll-height": "50vh" }}>
 
+                            {/* editar menus */}
+                            <li className="nav-item border border-dark rounded-pill w-25 d-flex justify-content-around">
+                                <button
+                                    className="btn btn-link link-success"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalMenu"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-plus-circle" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                </button>
+
+                                <button
+                                    className="btn btn-link link-warning"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalMenu"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                    </svg>
+                                </button>
+                            </li>
+
+                            {/* lista de menus */}
+                            {localStorage.getItem("menu").split(" ").map(menu => {
+                                if (menu != "")
+                                    return (
+                                        <li className="nav-item">
+                                            <Link className="nav-link link-dark p-2" to={`/${props.user}/${menu}`}>
+                                                {menu}
+                                            </Link>
+                                        </li>
+                                    )
+                            })}
+
+                            {/* demais coisas */}
+                            <li className="nav-item dropdown">
+                                <a className="nav-link link-dark dropdown-toggle p-2" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    features
+                                </a>
+                                <ul className="dropdown-menu bg-cadet" aria-labelledby="navbarScrollingDropdown">
+                                    <table className="table table-hover m-0">
+                                        <tbody>
+                                            <tr>
+                                                <Link className="nav-link link-dark p-2" to={`/${props.user}`}>
+                                                    Sobre este site
+                                                </Link>
+                                            </tr>
+                                            <tr>
+                                                <Link className="nav-link link-dark p-2" to={`/${props.user}/Respect`}>
+                                                    Respeito aos pais
+                                                </Link>
+                                            </tr>
+                                            <tr>
+                                                <Link className="nav-link link-dark p-2" to={`/${props.user}/StarWars`}>
+                                                    StarWars
+                                                </Link>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </nav >
         </>
     );
