@@ -82,7 +82,7 @@ export function Navbar(props) {
                 removeLogin()
             } else {
                 setLoading(false)
-                alert("não consegui criar, desculpa")
+                alert(res['message'])
             }
         }
         );
