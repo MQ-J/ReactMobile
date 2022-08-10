@@ -5,9 +5,9 @@
 > Tem idéia de um nome melhor pra ele? Mande sua sujestão [aqui!](https://github.com/MQ-J/ReactMobile/issues)
 
 # Banco de dados
-Estas são as classes deste projeto, onde o USER é você😊, BLOCO é um bloco de anotação e MENU são os seus tópicos.
-
 O banco utilizado foi o [ElephantSQL](https://customer.elephantsql.com), que funciona com PostgreSQL.
+
+Estas são as classes deste projeto, onde o USER é você😊, BLOCO é um bloco de anotação e MENU são os seus tópicos.
 
 ```mermaid
 erDiagram
