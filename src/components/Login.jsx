@@ -51,9 +51,9 @@ export default function Login() {
       if (res['status'] == 'ok') {
         localStorage.setItem("user", event.target.name.value)
         localStorage.setItem("email", res['email'])
-        let menus = "" 
+        let menus = ""
         res['menus'].forEach(menu => {
-          menus += menu["nome"] + " "
+          menus += menu["nome"] + ";" + menu['code'] + " "
         });
         localStorage.setItem("menu", menus)
         navigate(event.target.name.value)
@@ -106,6 +106,7 @@ function NewUserModal(props) {
 
   // FUNÇÃO PARA CRIAR USUÁRIO
   const newUser = (event) => {
+    let code = event.target.code.value
 
     if (event.target.pwd.value === event.target.pwd2.value) {
 
@@ -126,7 +127,8 @@ function NewUserModal(props) {
 
         if (res['status'] == 'ok') {
           localStorage.setItem("user", event.target.name.value)
-          localStorage.setItem("menu", 'tarefas')
+          localStorage.setItem("email", event.target.email.value)
+          localStorage.setItem("menu", 'tarefas;' + code)
           location.reload()
         } else {
           props.setLoading(false)
@@ -190,25 +192,32 @@ function Form(props) {
 
       {props.auth ? "" :
         <>
-        <div className="input-group d-flex justify-content-around align-items-center">
-          <label htmlFor="pwd2">Confirmar senha</label>
+          <div className="input-group d-flex justify-content-around align-items-center">
+            <label htmlFor="pwd2">Confirmar senha</label>
+            <input
+              type="password"
+              name="pwd2"
+              className="form-control m-1 w-50"
+              required
+            />
+          </div>
+          <div className="input-group d-flex justify-content-around align-items-center">
+            <label htmlFor="pwd2">Email</label>
+            <input
+              type="email"
+              name="email"
+              className="form-control m-1 w-50"
+              required
+            />
+          </div>
           <input
-            type="password"
-            name="pwd2"
-            className="form-control m-1 w-50"
-            required
+            type="text"
+            name="code"
+            value={Math.random().toString(32).substr(2, 9)}
+            readOnly
+            hidden
           />
-        </div>
-        <div className="input-group d-flex justify-content-around align-items-center">
-          <label htmlFor="pwd2">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="form-control m-1 w-50"
-            required
-          />
-      </div>
-      </>
+        </>
       }
 
       <div className="d-flex flex-column justify-content-center mx-auto w-50 mt-2">
@@ -216,7 +225,7 @@ function Form(props) {
           {!props.loading ? (
             props.auth ? "login" : "Criar usuário"
           ) : (
-            <ClipLoader color={"#ffffff"} loading={props.loading} cssOverride={{display: "block", margin: "0 auto"}} size={20} />
+            <ClipLoader color={"#ffffff"} loading={props.loading} cssOverride={{ display: "block", margin: "0 auto" }} size={20} />
           )}
         </button>
       </div>

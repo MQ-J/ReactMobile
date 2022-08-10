@@ -20,12 +20,16 @@ export function Navbar(props) {
     //gif de carregando
     let [loading, setLoading] = useState(false);
 
+    //editar menus
+    let [alteraMenu, isAlteraMenu] = useState(false)
+
     // controla o logout
     const url = process.env.NODE_ENV == "development" ? "/" : "/ReactMobile/dist"
     const removeLogin = () => {
         localStorage.removeItem("user")
         localStorage.removeItem("menu")
         localStorage.removeItem("email")
+        localStorage.removeItem("currentmenu")
         location = url
     }
 
@@ -59,7 +63,7 @@ export function Navbar(props) {
         );
     }
 
-    //cria menu
+    // cria menu
     const addMenu = (event) => {
 
         setLoading(true)
@@ -89,6 +93,11 @@ export function Navbar(props) {
 
         event.preventDefault();
     };
+
+    // apaga menu
+    const deleteMenu = (menu) => {
+        alert("apaga o tópico de " + menu)
+    }
 
     return (
         <>
@@ -231,7 +240,7 @@ export function Navbar(props) {
             </div>
 
             {/* Barra de navegação */}
-            < nav className="navbar navbar-expand-lg justify-content-around mb-2 bg-cadet" >
+            <nav className="navbar navbar-expand-lg justify-content-around mb-2 bg-cadet" >
 
                 <div className="container-fluid">
 
@@ -244,7 +253,7 @@ export function Navbar(props) {
 
                     {/* icone de usuário */}
                     < button
-                        className="btn p-2"
+                        className="btn p-2 me-3"
                         data-bs-toggle="modal"
                         data-bs-target="#modalUser"
                     >
@@ -269,7 +278,7 @@ export function Navbar(props) {
                         <ul className="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style={{ "--bs-scroll-height": "50vh" }}>
 
                             {/* editar menus */}
-                            <li className="nav-item border border-dark rounded-pill w-25 d-flex justify-content-around">
+                            <li className="nav-item border border-dark rounded-pill d-flex justify-content-around me-2" style={{ width: "95px" }}>
                                 <button
                                     className="btn btn-link link-success"
                                     data-bs-toggle="modal"
@@ -283,10 +292,9 @@ export function Navbar(props) {
 
                                 <button
                                     className="btn btn-link link-warning"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#modalMenu"
+                                    onClick={() => isAlteraMenu(!alteraMenu)}
                                 >
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
                                         <path fillRule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
                                     </svg>
@@ -294,15 +302,68 @@ export function Navbar(props) {
                             </li>
 
                             {/* lista de menus */}
-                            {localStorage.getItem("menu").split(" ").map(menu => {
-                                if (menu != "")
-                                    return (
-                                        <li className="nav-item">
-                                            <Link className="nav-link link-dark p-2" to={`/${props.user}/${menu}`}>
-                                                {menu}
-                                            </Link>
-                                        </li>
-                                    )
+                            {localStorage.getItem("menu").split(" ").map((content, index) => {
+                                if (content != "") {
+                                    let cont = content.split(";")
+                                    let menu = cont[0]
+                                    let code = cont[1]
+                                    if (!alteraMenu) {
+                                        return (
+                                            <li className="nav-item" key={index}>
+                                                <Link
+                                                    className="nav-link link-dark p-2"
+                                                    to={`/${props.user}/${code}`}
+                                                    onClick={() => {
+                                                        localStorage.setItem("currentmenu", menu)
+                                                    }}
+                                                >
+                                                    {menu}
+                                                </Link>
+                                            </li>
+                                        )
+                                    } else {
+                                        return (
+                                            <li className="nav-item m-1" key={index} style={{ width: "200px" }}>
+
+                                                <form className="input-group" onSubmit={addMenu}>
+                                                    <input
+                                                        type="text"
+                                                        name="nome"
+                                                        className="form-control bg-cadet border border-dark"
+                                                        defaultValue={menu}
+                                                        required
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        name="user"
+                                                        value={props.user}
+                                                        readOnly
+                                                        hidden
+                                                    />
+                                                    <input
+                                                        type="text"
+                                                        name="code"
+                                                        value={code}
+                                                        readOnly
+                                                        hidden
+                                                    />
+                                                    <button className="btn btn-link border border-dark" type="submit">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-check-circle text-success" viewBox="0 0 16 16">
+                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                            <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                                                        </svg>
+                                                    </button>
+                                                    <button className="btn btn-link border border-dark" onClick={() => deleteMenu(menu)} type="button" id={"alter" + menu}>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-dash-circle text-danger ms-2" viewBox="0 0 16 16">
+                                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        )
+                                    }
+                                }
                             })}
 
                             {/* demais coisas */}
@@ -335,7 +396,7 @@ export function Navbar(props) {
                         </ul>
                     </div>
                 </div>
-            </nav >
+            </nav>
         </>
     );
 }

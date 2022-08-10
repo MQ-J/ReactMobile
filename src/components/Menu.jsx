@@ -26,6 +26,9 @@ export default function Menu() {
   // bloco em estado inicial
   const [numBlocos, setNumblocos] = useState([])
 
+  //nome do menu buscado do localstorage
+  const menuname = localStorage.getItem("currentmenu")
+
   async function getBlocos(user) {
 
     const host = process.env.NODE_ENV == "development" ? "http://127.0.0.1:8000" : "https://polar-shelf-77439.herokuapp.com"
@@ -93,7 +96,8 @@ export default function Menu() {
 
     var formData = new FormData()
     formData.append('name', user)
-    formData.append('menu', menu)
+    formData.append('menu', menuname)
+    formData.append('codemenu', menu)
     formData.append('code', event.target.code.value)
     formData.append('title', event.target.title.value)
     formData.append('text', event.target.texto.value)
@@ -157,45 +161,45 @@ export default function Menu() {
 
       {/* conteúdo */}
       <div className="d-flex flex-column aligns-items-center justify-content-center w-50 mx-auto" style={{ minWidth: 200 }}>
-        <h2 className="text-center pt-3">{menu}</h2>
+        <h2 className="text-center pt-3">{menuname}</h2>
         <div className="mb-3">
           <button type="button" className="btn btn-sm bg-cadet" onClick={addBloco}>Adicionar bloco</button>
         </div>
-        
+
         {!numBlocos.length ? (
-          <ClipLoader color={"#ffffff"} loading={true} cssOverride={{display: "block", margin: "0 auto"}} size={40} />
+          <ClipLoader color={"#ffffff"} loading={true} cssOverride={{ display: "block", margin: "0 auto" }} size={40} />
         ) : (
           numBlocos.map((bloco) =>
-          <div key={bloco.code} id={bloco.code} className="bg-dark w-100 mx-auto rounded my-3">
-            <form onSubmit={DB}>
-              <input
-                className="form-control bg-dark fw-bold text-white border-0"
-                name="title"
-                defaultValue={bloco.title}
-                onChange={event => attBloco(event)}
-              />
-              <textarea
-                className="form-control bg-dark fw-light text-white border-0"
-                rows="3"
-                name="texto"
-                defaultValue={bloco.text}
-                onChange={event => attBloco(event)}>
-              </textarea>
-              <input value={bloco.code} name="code" readOnly hidden />
+            <div key={bloco.code} id={bloco.code} className="bg-dark w-100 mx-auto rounded my-3">
+              <form onSubmit={DB}>
+                <input
+                  className="form-control bg-dark fw-bold text-white border-0"
+                  name="title"
+                  defaultValue={bloco.title}
+                  onChange={event => attBloco(event)}
+                />
+                <textarea
+                  className="form-control bg-dark fw-light text-white border-0"
+                  rows="3"
+                  name="texto"
+                  defaultValue={bloco.text}
+                  onChange={event => attBloco(event)}>
+                </textarea>
+                <input value={bloco.code} name="code" readOnly hidden />
 
-              <div className="d-flex justify-content-end gap-3 p-2">
-                <button className="btn btn-link link-success" type="submit" style={{ backgroundColor: '#212529' }}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-check-circle text-success" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                  <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
-                </svg></button>
-                <button className="btn btn-link link-danger" type="button" onClick={() => deleteBloco(bloco.code)} style={{ backgroundColor: '#212529' }}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-dash-circle text-danger" viewBox="0 0 16 16">
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-                  <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
-                </svg></button>
-              </div>
-            </form>
-          </div>
-        )
+                <div className="d-flex justify-content-end gap-3 p-2">
+                  <button className="btn btn-link link-success" type="submit" style={{ backgroundColor: '#212529' }}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-check-circle text-success" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+                  </svg></button>
+                  <button className="btn btn-link link-danger" type="button" onClick={() => deleteBloco(bloco.code)} style={{ backgroundColor: '#212529' }}><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-dash-circle text-danger" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z" />
+                  </svg></button>
+                </div>
+              </form>
+            </div>
+          )
         )}
       </div>
     </div>
